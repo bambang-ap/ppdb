@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title></title>
+        <title>PPDB (Penerimaan Peserta Didik Baru)</title>
       </Head>
       <Component {...pageProps} />
     </>

@@ -32,6 +32,9 @@
       "@hooks": [
         "./hooks"
       ],
+      "@type": [
+        "./types"
+      ],
       "@type/*": [
         "./types/*"
       ],

@@ -1,6 +1,6 @@
 import { Sheets } from "@constants";
 import { btoa } from "abab";
-import Stein from "stein-client";
+import Stein from "./Asd";
 
 const client = new Stein("62d24025bca21f053ea40b0f");
 
@@ -9,9 +9,10 @@ export type IUser = Record<
   string
 >;
 
-export const loginApi = async (username: string, password: string) => {
+export const loginApi = async (username: string, pass: string) => {
+  const password = btoa(pass) ?? "";
   const resp = await client.get<IUser>(Sheets.USER, {
-    search: { username, password: btoa(password) ?? "" },
+    search: { username, password },
   });
 
   if (resp.length === 1) return resp[0];
@@ -19,10 +20,13 @@ export const loginApi = async (username: string, password: string) => {
   return null;
 };
 
+export const studentsApi = (id = "") => {
+  return client.get(Sheets.STUDENTS, { search: { id } });
+};
+
 export const tokenValidApi = async (token: string) => {
   const resp = await client.getWithType(Sheets.TOKEN, {
     search: { token, registered: "false" },
   });
-  return resp
-  // return resp?.length === 1;
+  return resp?.length === 1;
 };

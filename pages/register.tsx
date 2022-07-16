@@ -5,24 +5,26 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 const Register = () => {
   const { replace } = useRouter();
-  const [isTokenValid, setIsTokenValid] = useState<boolean>();
 
   const checkToken = async (token: string) => {
+    if (!token) {
+      alert("Token invalid");
+      replace(PATHS.LOGIN);
+    }
+
     const { tokenValidApi } = await import("@utils/api");
     const resp = await tokenValidApi(token);
-    console.log({resp})
-    // setIsTokenValid(resp);
+
+    if (resp) return;
+
+    alert("Token invalid");
+    replace(PATHS.LOGIN);
   };
 
   useLayoutEffect(() => {
     const query = queryParams();
     checkToken(query.token);
   }, []);
-
-  console.log({ isTokenValid });
-
-  if (isTokenValid === false) replace(PATHS.LOGIN);
-  if (isTokenValid === undefined) return null;
 
   return "null";
 };

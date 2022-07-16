@@ -4,6 +4,7 @@ export * from "./sizes";
 export enum Sheets {
   USER = "users",
   TOKEN = "token",
+  STUDENTS = "students",
 }
 
 export enum PATHS {
