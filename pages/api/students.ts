@@ -1,37 +1,39 @@
-import { DataSiswa, OrangTua, Siswa } from "@type/Student";
-import { studentsApi } from "@helpers";
-
 import { NextApiRequest, NextApiResponse } from "next";
+import { COLLECTIONS, DB_NAME, mongoClient } from "@helpers";
+
+const { AYAH, IBU, SISWA, WALI } = COLLECTIONS;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query as Record<string, string>;
-  const response = await studentsApi(id);
-
-  const resp = response.map((data) => {
-    const dataObject = Object.entries(data);
-    return dataObject.reduce(
-      (ret, [key, value]) => {
-        const lowerKey = key.toLowerCase();
-        if (lowerKey.match(/ayah|ibu|wali/)) {
-          const newKey = key.replace(/ayah|ibu|wali/i, "") as keyof OrangTua;
-          if (lowerKey.includes("ayah")) ret.ayah[newKey] = value;
-          if (lowerKey.includes("ibu")) ret.ibu[newKey] = value;
-          if (lowerKey.includes("wali")) ret.wali[newKey] = value;
-        } else {
-          const newKey = key as keyof Siswa;
-          if (newKey.match(/checked|kebutuhanKhusus|punyaKip/))
-            // @ts-ignore
-            value = value === "true";
-          if (newKey === "pilihanJurusan") value = JSON.parse(value);
-          // @ts-ignore
-          ret.siswa[newKey] = value;
-        }
-        return ret;
+  const joiner = [AYAH, IBU, WALI].map((coll) => {
+    return {
+      $lookup: {
+        from: coll,
+        localField: "_id",
+        foreignField: "_id",
+        as: coll,
       },
-      { siswa: {}, ayah: {}, ibu: {}, wali: {} } as DataSiswa
-    );
+    };
   });
 
-  if (id) res.send(resp[0]);
-  else res.send(resp);
+  const aggregations = id ? [{ $match: { _id: id } }, ...joiner] : joiner;
+
+  const conn = await mongoClient.connect();
+  const data = await conn
+    .db(DB_NAME)
+    .collection(SISWA)
+    .aggregate(aggregations)
+    .toArray();
+  conn.close();
+
+  if (!id) {
+    res.status(200);
+    res.send(data);
+  } else if (id && data.length === 1) {
+    res.status(200);
+    res.send(data[0]);
+  } else {
+    res.status(500);
+    res.send({ status: 500, msg: "Student not found" });
+  }
 };

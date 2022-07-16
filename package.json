@@ -12,11 +12,10 @@
   "dependencies": {
     "abab": "^2.0.6",
     "axios": "^0.27.2",
+    "mongodb": "^4.8.0",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "stein-client": "bambang-ap/stein-client#1.2.0",
-    "stein-js-client": "^0.0.2",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
