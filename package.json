@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 1234",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lintt": "eslint --ext=jsx,ts,tsx components pages"
   },
   "dependencies": {
+    "abab": "^2.0.6",
     "axios": "^0.27.2",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "stein-client": "bambang-ap/stein-client#1.1.2.beta",
+    "stein-js-client": "^0.0.2",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
