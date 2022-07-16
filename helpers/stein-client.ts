@@ -8,7 +8,7 @@ import SteinStore, {
 
 type Manage = Record<string, string | number>;
 
-class Steins {
+export class Stein {
   private client: SteinStore;
   private authentication: Auth;
 
@@ -89,5 +89,3 @@ class Steins {
     }, {} as Record<string, [type: string, delimiter: string]>);
   }
 }
-
-export default Steins;

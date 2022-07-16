@@ -1,17 +1,17 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { FlexAll, FlexBox, getFlexBox } from '@type/flexBox.type';
-import { COLORS, SIZES, TEXT_SIZES } from '@constants';
+import { FlexAll, FlexBox, getFlexBox } from "@type/flexBox.type";
+import { COLORS, SIZES, TEXT_SIZES } from "@constants";
 
-export const View = styled.div<FlexBox>(props => {
+export const View = styled.div<FlexBox>((props) => {
   const { flexBoxStyleProps } = getFlexBox(props);
   const { textAlign, ...rest } = flexBoxStyleProps ?? {};
   const { onClick } = props;
   return {
     ...rest,
-    display: 'flex',
-    flexDirection: 'column',
-    cursor: onClick ? 'pointer' : undefined,
+    display: "flex",
+    flexDirection: "column",
+    cursor: onClick ? "pointer" : undefined,
   };
 });
 
@@ -21,33 +21,33 @@ export const Container = styled(View)({
 });
 
 export const Wrapper = styled(View)({
-  flexDirection: 'row',
-  justifyContent: 'space-between',
+  flexDirection: "row",
+  justifyContent: "space-between",
 });
 
-export const Text = styled.div<FlexAll>(props => {
+export const Text = styled.div<FlexAll>((props) => {
   const { flexBoxStyleProps } = getFlexBox(props);
   const { onClick } = props;
   return {
     fontSize: TEXT_SIZES.t_body_3,
-    display: 'flex',
-    cursor: onClick ? 'pointer' : undefined,
+    display: "flex",
+    cursor: onClick ? "pointer" : undefined,
     ...flexBoxStyleProps,
   };
 });
 
-export const Button = styled.div<FlexAll>(props => {
+export const Button = styled.div<FlexAll>((props) => {
   const { flexBoxStyleProps } = getFlexBox(props);
   return {
     ...flexBoxStyleProps,
-    alignContent: 'center',
+    alignContent: "center",
     fontSize: TEXT_SIZES.t_body_1,
-    display: 'flex',
-    cursor: 'pointer',
+    display: "flex",
+    cursor: "pointer",
     borderRadius: SIZES._radius,
     backgroundColor: COLORS.PINK,
     color: COLORS.WHITE,
-    textAlign: 'center',
+    textAlign: "center",
     padding: SIZES.padding,
   };
 });
@@ -55,7 +55,7 @@ export const Button = styled.div<FlexAll>(props => {
 const StyledInput = styled.input<{
   onChangeText?: (value: string) => void;
   onSubmitEditting?: () => void;
-}>(props => {
+}>((props) => {
   const { flexBoxStyleProps } = getFlexBox(props);
   const { textAlign, ...rest } = flexBoxStyleProps ?? {};
   return {
@@ -65,23 +65,61 @@ const StyledInput = styled.input<{
     borderWidth: SIZES._outline,
     fontSize: TEXT_SIZES.t_body_3,
     padding: `0 ${SIZES.padding}`,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
   };
 });
 
-export const Input = (props: typeof StyledInput['defaultProps']) => {
+export const Input = (props: typeof StyledInput["defaultProps"]) => {
   const { onChangeText, onChange, onKeyUp, onSubmitEditting, ...rest } =
     props ?? {};
 
   return (
     <StyledInput
-      onChange={event => {
+      onChange={(event) => {
         onChangeText?.(event.target.value);
         onChange?.(event);
       }}
-      onKeyUp={event => {
-        if (event.key === 'Enter') onSubmitEditting?.();
+      onKeyUp={(event) => {
+        if (event.key === "Enter") onSubmitEditting?.();
+        onKeyUp?.(event);
+      }}
+      {...rest}
+    />
+  );
+};
+
+const StyledTextArea = styled.textarea<{
+  onChangeText?: (value: string) => void;
+  onSubmitEditting?: () => void;
+}>((props) => {
+  // @ts-ignore
+  const { flexBoxStyleProps } = getFlexBox(props);
+  const { textAlign, ...rest } = flexBoxStyleProps ?? {};
+  return {
+    ...rest,
+    height: SIZES.box,
+    borderRadius: SIZES._radius,
+    borderWidth: SIZES._outline,
+    fontSize: TEXT_SIZES.t_body_3,
+    padding: `0 ${SIZES.padding}`,
+    display: "flex",
+    flexDirection: "column",
+  };
+});
+
+export const TextArea = (props: typeof StyledTextArea["defaultProps"]) => {
+  const { onChangeText, onChange, onKeyUp, onSubmitEditting, ...rest } =
+    props ?? {};
+
+  return (
+    <StyledTextArea
+      onChange={(event) => {
+        onChangeText?.(event.target.value);
+        onChange?.(event);
+      }}
+      onKeyUp={(event) => {
+        if (event.key === "Enter") onSubmitEditting?.();
         onKeyUp?.(event);
       }}
       {...rest}
@@ -90,7 +128,7 @@ export const Input = (props: typeof StyledInput['defaultProps']) => {
 };
 
 type BoxSpaceProps = Partial<
-  ObjFromTuple<'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'>
+  ObjFromTuple<"A" | "B" | "C" | "D" | "E" | "F" | "G">
 >;
 
 export const BoxSpace = (props: BoxSpaceProps) => {

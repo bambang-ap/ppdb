@@ -1,9 +1,9 @@
 import { DataSiswa, OrangTua, Siswa } from "@type/Student";
-import { studentsApi } from "@utils/api";
+import { studentsApi } from "@helpers";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-const student = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query as Record<string, string>;
   const response = await studentsApi(id);
 
@@ -35,5 +35,3 @@ const student = async (req: NextApiRequest, res: NextApiResponse) => {
   if (id) res.send(resp[0]);
   else res.send(resp);
 };
-
-export default student;

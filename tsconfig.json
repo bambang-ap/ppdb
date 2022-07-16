@@ -23,14 +23,17 @@
       "@components": [
         "./components"
       ],
-      "@pages/*": [
-        "./components/pages/*"
+      "@appComponent": [
+        "./components/App"
       ],
       "@constants": [
         "./constants"
       ],
       "@hooks": [
         "./hooks"
+      ],
+      "@helpers": [
+        "./helpers"
       ],
       "@type": [
         "./types"

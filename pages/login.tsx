@@ -1,6 +1,6 @@
 import { Container, View, Input, Button } from "@components";
 import { PATHS } from "@constants";
-import { storageUserData } from "@utils";
+import { ApiClient, storageUserData } from "@utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -11,9 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const doLogin = async () => {
-    const { loginApi } = await import("@utils/api");
-    const resp = await loginApi(username, password);
-
+    const resp = await ApiClient.login(username, password);
+    console.log(resp);
     if (!resp) return;
 
     storageUserData.set(resp);

@@ -1,5 +1,8 @@
+import { DataSiswa } from "@appComponent";
+import { Container } from "@components";
 import { PATHS } from "@constants";
-import { queryParams } from "@utils";
+import { queryParamsToObject } from "@helpers";
+import { ApiClient, queryParams } from "@utils";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
 
@@ -11,9 +14,7 @@ const Register = () => {
       alert("Token invalid");
       replace(PATHS.LOGIN);
     }
-
-    const { tokenValidApi } = await import("@utils/api");
-    const resp = await tokenValidApi(token);
+    const resp = await ApiClient.checkToken(token);
 
     if (resp) return;
 
@@ -22,11 +23,15 @@ const Register = () => {
   };
 
   useLayoutEffect(() => {
-    const query = queryParams();
+    const query = queryParamsToObject(location.search);
     checkToken(query.token);
   }, []);
 
-  return "null";
+  return (
+    <Container>
+      <DataSiswa />
+    </Container>
+  );
 };
 
 export default Register;
