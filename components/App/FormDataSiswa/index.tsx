@@ -1,15 +1,20 @@
 import { Text, View } from "@components";
 import { StudentKey } from "@type/Student";
+import { COLORS, SIZES } from "@constants";
 import FormDataOrangTua from "./FormOrangTua";
 import DataPribadiSiswa from "./DataPribadiSiswa";
 import FormKontakSiswa from "./FormKontakSiswa";
-import { COLORS, SIZES } from "@constants";
+import RegistrasiPesertaDidik from "./RegistrasiPesertaDidik";
 
 export const FormDataSiswa = () => {
   return (
     <>
       <View style={style}>
         <DataPribadiSiswa />
+      </View>
+
+      <View style={style}>
+        <RegistrasiPesertaDidik />
       </View>
 
       <View style={style}>

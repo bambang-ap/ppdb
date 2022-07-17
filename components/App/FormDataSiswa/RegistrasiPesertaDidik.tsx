@@ -22,7 +22,7 @@ const RegistrasiPesertaDidik = () => {
       <FormCheckbox
         showIndex
         value={pilihanJurusan}
-        title="Kompetensi Keahlian yang dipilih"
+        title="Kompetensi Keahlian yang dipilih (Tandai paling awal untuk menentukan pilihan pertama dst)"
         onChange={({ value }) => {
           const prev = pilihanJurusan ?? [];
           if (prev.includes(value))
