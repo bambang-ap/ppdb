@@ -20,9 +20,6 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@server": [
-        "./server"
-      ],
       "@components": [
         "./components"
       ],
@@ -38,23 +35,17 @@
       "@helpers": [
         "./helpers"
       ],
-      "@type": [
-        "./types"
+      "@server": [
+        "./server"
       ],
-      "@atoms": [
-        "./recoil/atoms"
+      "@type/*": [
+        "./types/*"
       ],
-      "@selectors": [
-        "./recoil/selectors"
-      ],
-      "@styles/*": [
-        "./styles/*"
+      "@recoil/*": [
+        "./recoil/*"
       ],
       "@utils": [
         "./utils"
-      ],
-      "@utils/*": [
-        "./utils/*"
       ]
     }
   },

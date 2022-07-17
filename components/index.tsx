@@ -58,7 +58,7 @@ type FormRadioProps<T extends { name: string; value: any }> = {
   title: string;
   data: T[];
   value: T["value"];
-  onChange: (value: T) => void;
+  onChange: (value: T, index: number) => void;
 };
 
 export const FormRadio = <T extends { name: string; value: any }>(
@@ -73,14 +73,14 @@ export const FormRadio = <T extends { name: string; value: any }>(
       <Text>{title}</Text>
       <BoxSpace />
       <Wrapper wrap style={{ justifyContent: "flex-start" }}>
-        {data.map((radio) => {
+        {data.map((radio, i) => {
           const { name, value } = radio;
 
           const isSelected = value === selected;
           const backgroundColor = isSelected ? COLORS.PINK : COLORS.WHITE;
 
           return (
-            <Wrapper onClick={() => onChange(radio)} itemsCenter>
+            <Wrapper onClick={() => onChange(radio, i)} itemsCenter>
               <View
                 itemsCenter
                 justifyCenter
@@ -113,9 +113,12 @@ export const FormRadio = <T extends { name: string; value: any }>(
 };
 
 export const FormCheckbox = <T extends { name: string; value: any }>(
-  props: Omit<FormRadioProps<T>, "value"> & { value: T["value"][] }
+  props: Omit<FormRadioProps<T>, "value"> & {
+    value: T["value"][];
+    showIndex?: boolean;
+  }
 ) => {
-  const { title, value: selected, data, onChange } = props;
+  const { showIndex, title, value: selected, data, onChange } = props;
 
   const [sizeOut, sizeIn] = [SIZES.content, SIZES.padding];
 
@@ -124,14 +127,15 @@ export const FormCheckbox = <T extends { name: string; value: any }>(
       <Text>{title}</Text>
       <BoxSpace />
       <Wrapper wrap style={{ justifyContent: "flex-start" }}>
-        {data.map((radio) => {
+        {data.map((radio, i) => {
           const { name, value } = radio;
 
-          const isSelected = selected.includes(value);
+          const index = selected?.indexOf?.(value);
+          const isSelected = selected?.includes?.(value);
           const backgroundColor = isSelected ? COLORS.PINK : COLORS.WHITE;
 
           return (
-            <Wrapper onClick={() => onChange(radio)} itemsCenter>
+            <Wrapper onClick={() => onChange(radio, i)} itemsCenter>
               <View
                 itemsCenter
                 justifyCenter
@@ -139,11 +143,15 @@ export const FormCheckbox = <T extends { name: string; value: any }>(
                 height={sizeOut}
                 style={{ backgroundColor: COLORS.PINK75 }}
               >
-                <View
-                  width={sizeIn}
-                  height={sizeIn}
-                  style={{ backgroundColor }}
-                />
+                {showIndex && index >= 0 ? (
+                  <Text style={{ color: COLORS.WHITE }}>{index + 1}</Text>
+                ) : (
+                  <View
+                    width={sizeIn}
+                    height={sizeIn}
+                    style={{ backgroundColor }}
+                  />
+                )}
               </View>
               <BoxSpace />
               <Text flex>{name}</Text>

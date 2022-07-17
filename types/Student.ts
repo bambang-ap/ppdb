@@ -26,6 +26,21 @@ export interface DataSiswa {
   ayah: OrangTua[];
   ibu: OrangTua[];
   wali: OrangTua[];
+  telpRumah: string;
+  hpAyah: string;
+  hpIbu: string;
+  hpWali: string;
+  socmed: [fb?: string, ig?: string, tw?: string, yt?: string, tt?: string];
+  info: [
+    fb?: string,
+    ig?: string,
+    tw?: string,
+    yt?: string,
+    teman?: string,
+    guruBk?: string,
+    guruSmk?: string,
+    lain?: string
+  ];
 }
 
 export interface OrangTua {
@@ -36,5 +51,10 @@ export interface OrangTua {
   pendidikan: string;
   pekerjaan: string;
   penghasilanBulanan: string;
-  hp: string;
+}
+
+export enum StudentKey {
+  AYAH = "ayah",
+  IBU = "ibu",
+  WALI = "wali",
 }

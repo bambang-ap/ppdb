@@ -1,33 +1,46 @@
 import { FormInput, FormRadio, Input } from "@components";
-import { OrangTua } from "@type/Student";
+import { useDataSiswa } from "@hooks";
+import { StudentKey } from "@type/Student";
 
 type OrtuProps = {
-  data: OrangTua[];
+  id: StudentKey;
 };
 
-export const FormDataOrangTua = (props: OrtuProps) => {
-  const { data } = props;
+const FormDataOrangTua = (props: OrtuProps) => {
+  const { id: key } = props;
 
   const {
-    hp,
-    nama,
-    nik,
-    pekerjaan,
-    pendidikan,
-    penghasilanBulanan,
-    tahunLahir,
-  } = data?.[0] ?? {};
+    data: { [key]: data },
+    setDataOrtu,
+  } = useDataSiswa();
+
+  const { nama, nik, pekerjaan, pendidikan, penghasilanBulanan, tahunLahir } =
+    data?.[0] ?? {};
 
   return (
     <>
-      <FormInput value={nama} title="Nama" />
-      <FormInput value={nik} title="NIK" />
-      <FormInput value={hp} title="Nomor Handphone" />
-      <FormInput type="number" value={tahunLahir} title="Tahun Lahir" />
+      <FormInput
+        value={nama}
+        title="Nama"
+        onChangeText={(nama) => setDataOrtu(key, { nama })}
+      />
+      <FormInput
+        value={nik}
+        title="NIK"
+        onChangeText={(nik) => setDataOrtu(key, { nik })}
+      />
+      <FormInput
+        type="number"
+        value={tahunLahir}
+        title="Tahun Lahir"
+        onChangeText={(tahunLahir) =>
+          setDataOrtu(key, { tahunLahir: Number(tahunLahir) })
+        }
+      />
       <FormRadio
         value={pendidikan}
         title="Pendidikan"
-        onChange={() => null}
+        onChange={({ value }) => setDataOrtu(key, { pendidikan: value })}
         data={[
           { name: "Tidak Sekolah", value: "1" },
           { name: "Putus SD", value: "2" },
@@ -45,7 +58,7 @@ export const FormDataOrangTua = (props: OrtuProps) => {
       <FormRadio
         value={pekerjaan}
         title="Pekerjaan"
-        onChange={() => null}
+        onChange={({ value }) => setDataOrtu(key, { pekerjaan: value })}
         data={[
           { name: "Tidak Bekerja", value: "1" },
           { name: "Guru", value: "2" },
@@ -65,7 +78,9 @@ export const FormDataOrangTua = (props: OrtuProps) => {
       <FormRadio
         value={penghasilanBulanan}
         title="Penghasilan Per Bulan"
-        onChange={() => null}
+        onChange={({ value }) =>
+          setDataOrtu(key, { penghasilanBulanan: value })
+        }
         data={[
           { name: "Kurang dari 500.000", value: "1" },
           { name: "500.000 - 999.999", value: "2" },
@@ -78,3 +93,5 @@ export const FormDataOrangTua = (props: OrtuProps) => {
     </>
   );
 };
+
+export default FormDataOrangTua;

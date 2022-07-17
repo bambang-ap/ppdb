@@ -1,179 +1,44 @@
-import {
-  FormCheckbox,
-  FormInput,
-  FormInputDate,
-  FormRadio,
-  FormTextarea,
-  Text,
-} from "@components";
-import { DataSiswa, OrangTua } from "@type/Student";
-import { FormDataOrangTua } from "./FormOrangTua";
+import { Text, View } from "@components";
+import { StudentKey } from "@type/Student";
+import FormDataOrangTua from "./FormOrangTua";
+import DataPribadiSiswa from "./DataPribadiSiswa";
+import FormKontakSiswa from "./FormKontakSiswa";
+import { COLORS, SIZES } from "@constants";
 
-type Props = {
-  data: DataSiswa;
-};
-
-export const FormDataSiswa = (props: Props) => {
-  const { data } = props;
-
-  const { ayah, ibu, wali, ...siswa } = data ?? {};
-  const {
-    alamat,
-    anakKe,
-    asalSekolah,
-    jenKel,
-    jenisPendaftaran,
-    kebutuhanKhusus,
-    kepercayaan,
-    kewarganegaraan,
-    kodePos,
-    modaTransportasi,
-    namaLengkap,
-    nik,
-    nisn,
-    noAktaLahir,
-    noHp,
-    noKip,
-    pilihanJurusan,
-    punyaKip,
-    tanggalLahir,
-    tempatLahir,
-    tempatTinggal,
-  } = siswa;
-
+export const FormDataSiswa = () => {
   return (
     <>
-      <Text alignCenter>Data Pribadi Calon Peserta Didik</Text>
-      <FormInput value={namaLengkap} title="Nama Lengkap" />
-      <FormInput value={noHp} title="Nomor HP" />
-      <FormRadio
-        value={jenKel}
-        title="Jenis Kelamin"
-        onChange={() => null}
-        data={[
-          { name: "Laki-laki", value: "1" },
-          { name: "Perempuan", value: "2" },
-        ]}
-      />
-      <FormInput value={nisn} title="NISN" />
-      <FormInput value={nik} title="NIK" />
-      <FormInput value={tempatLahir} title="Tempat Lahir" />
-      <FormInputDate value={tanggalLahir} title="Tanggal Lahir" />
-      <FormInput value={noAktaLahir} title="Nomor Akta Lahir" />
-      <FormRadio
-        value={kepercayaan}
-        title="Kepercayaan"
-        onChange={() => null}
-        data={[
-          { name: "Islam", value: "1" },
-          { name: "Kristen/ Protestan", value: "2" },
-          { name: "Katholik", value: "3" },
-          { name: "Hindu", value: "4" },
-          { name: "Budha", value: "5" },
-          { name: "Khonghucu", value: "6" },
-          { name: "Adat/Tradisi", value: "7" },
-          { name: "Lainnya", value: kepercayaan },
-        ]}
-      />
-      <FormRadio
-        value={kewarganegaraan}
-        title="Kewarganegaraan"
-        onChange={() => null}
-        data={[
-          { name: "Indonesia (WNI)", value: "Indonesia" },
-          { name: "Asing (WNA)", value: kewarganegaraan },
-        ]}
-      />
-      {kewarganegaraan !== "Indonesia" && (
-        <FormInput value={kewarganegaraan} title="Nama Negara" />
-      )}
-      <FormRadio
-        title="Berkebutuhan Khusus"
-        value={kebutuhanKhusus}
-        data={[
-          { name: "Tidak", value: "1" },
-          { name: "Netra", value: "2" },
-          { name: "Rungu", value: "3" },
-          { name: "Wicara", value: "4" },
-          { name: "Hiper Aktif", value: "5" },
-          { name: "Kesulitan Belajar", value: "6" },
-          { name: "Ketergantungan Obat", value: "7" },
-          { name: "Indigo", value: "8" },
-          { name: "Down Sindrome", value: "9" },
-          { name: "Autis", value: "10" },
-        ]}
-        onChange={(value) => console.log(value)}
-      />
-      <FormTextarea value={alamat} title="Alamat" />
-      <FormInput type="number" value={kodePos} title="Kode POS" />
-      <FormRadio
-        value={tempatTinggal}
-        title="Tempat Tinggal"
-        onChange={() => null}
-        data={[
-          { name: "Bersama Orang Tua", value: "1" },
-          { name: "Wali", value: "2" },
-          { name: "Kos", value: "3" },
-          { name: "Asrama", value: "4" },
-          { name: "Panti Asuhan", value: "5" },
-          { name: "Lainnya", value: "9" },
-        ]}
-      />
-      <FormInput value={modaTransportasi} title="Moda Transportasi" />
-      <FormRadio
-        value={modaTransportasi}
-        title="Moda Transportasi"
-        onChange={() => null}
-        data={[
-          { name: "Jalan Kaki", value: "1" },
-          { name: "Kendaraan Pribadi", value: "2" },
-          { name: "Kendaraan Umum / Angkutan", value: "3" },
-          { name: "Jemputan Pribadi", value: "4" },
-          { name: "Ojek", value: "5" },
-          { name: "Lainnya", value: "6" },
-        ]}
-      />
-      <FormInput value={anakKe} title="Anak Keberapa" />
-      <FormRadio
-        value={punyaKip}
-        title="Punya KIP"
-        onChange={() => null}
-        data={[
-          { name: "Ya", value: true },
-          { name: "Tidak", value: false },
-        ]}
-      />
-      {punyaKip && <FormInput value={noKip} title="Nomor KIP" />}
-      <Text alignCenter>Data Ayah Kandung</Text>
-      <FormDataOrangTua data={ayah} />
-      <Text alignCenter>Data Ibu Kandung</Text>
-      <FormDataOrangTua data={ibu} />
-      <Text alignCenter>Data Wali Peserta Didik(Jika ada)</Text>
-      <FormDataOrangTua data={wali} />
-      <Text alignCenter>Registrasi Peserta Didik</Text>
-      <FormRadio
-        value={jenisPendaftaran}
-        title="Jenis Pendaftaran"
-        onChange={() => null}
-        data={[
-          { name: "Siswa Baru", value: "1" },
-          { name: "Pindahan", value: "2" },
-          { name: "Kembali Bersekolah", value: "3" },
-        ]}
-      />
-      <FormCheckbox
-        value={pilihanJurusan}
-        title="Kompetensi Keahlian yang dipilih"
-        onChange={() => null}
-        data={[
-          { name: "Akuntansi & Keuangan Lembaga", value: "1" },
-          { name: "Multimedia & Desain Grafis", value: "2" },
-          { name: "Teknik Komputer & Jaringan", value: "3" },
-          { name: "Teknik Kendaraan Ringan Otomotif", value: "4" },
-        ]}
-      />
-      <FormInput value={nisn} title="NISN" disabled />
-      <FormInput value={asalSekolah} title="Nama Asal Sekolah" />
+      <View style={style}>
+        <DataPribadiSiswa />
+      </View>
+
+      <View style={style}>
+        <Text alignCenter>Data Ayah Kandung</Text>
+        <FormDataOrangTua id={StudentKey.AYAH} />
+      </View>
+
+      <View style={style}>
+        <Text alignCenter>Data Ibu Kandung</Text>
+        <FormDataOrangTua id={StudentKey.IBU} />
+      </View>
+
+      <View style={style}>
+        <Text alignCenter>Data Wali Peserta Didik(Jika ada)</Text>
+        <FormDataOrangTua id={StudentKey.WALI} />
+      </View>
+
+      <View style={style}>
+        <FormKontakSiswa />
+      </View>
     </>
   );
+};
+
+const style = {
+  borderStyle: "solid",
+  borderRadius: SIZES._radius,
+  borderWidth: SIZES._outline,
+  borderColor: COLORS.BLACK100,
+  padding: SIZES.padding,
+  marginBottom: SIZES.padding,
 };
