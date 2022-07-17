@@ -3,13 +3,12 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
-import "./globals.css";
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
         <title>PPDB (Penerimaan Peserta Didik Baru)</title>
+        <link rel="stylesheet" href="globals.css"></link>
       </Head>
       <RecoilRoot>
         <Component {...pageProps} />
