@@ -3,7 +3,7 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
-import "@utils/globals.css";
+import "./globals.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
