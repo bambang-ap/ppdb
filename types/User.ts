@@ -1,8 +1,13 @@
 export interface User {
-  id: string;
+  _id: string;
   username: string;
   password: string;
   name: string;
   image: string;
-  role: string;
+  role: USER_ROLES;
+}
+
+export enum USER_ROLES {
+  ADMIN = "admin",
+  SISWA = "siswa",
 }

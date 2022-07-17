@@ -1,15 +1,15 @@
 export enum SIZES {
   _outline = '0.0625rem',
   _radius = '0.375rem',
-  _radiusround = '3.125rem',
-  _minipadding = '0.1875rem',
+  _radiusRound = '3.125rem',
+  _miniPadding = '0.1875rem',
   padding = '0.625rem',
   content = '1rem',
-  contentlarge = '1.5rem',
+  contentLarge = '1.5rem',
   container = '2rem',
   box = '3rem',
   header = '4rem',
-  pinspacing = '5rem',
+  pinSpacing = '5rem',
 }
 
 export enum TEXT_SIZES {

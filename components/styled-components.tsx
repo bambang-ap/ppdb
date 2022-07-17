@@ -52,6 +52,8 @@ export const Button = styled.div<FlexAll>((props) => {
   };
 });
 
+export type InputProps = typeof StyledInput["defaultProps"];
+
 const StyledInput = styled.input<{
   onChangeText?: (value: string) => void;
   onSubmitEditting?: () => void;
@@ -65,12 +67,13 @@ const StyledInput = styled.input<{
     borderWidth: SIZES._outline,
     fontSize: TEXT_SIZES.t_body_3,
     padding: `0 ${SIZES.padding}`,
+    outline: "none",
     display: "flex",
     flexDirection: "column",
   };
 });
 
-export const Input = (props: typeof StyledInput["defaultProps"]) => {
+export const Input = (props: InputProps) => {
   const { onChangeText, onChange, onKeyUp, onSubmitEditting, ...rest } =
     props ?? {};
 
@@ -88,6 +91,15 @@ export const Input = (props: typeof StyledInput["defaultProps"]) => {
     />
   );
 };
+
+export const InputDate = (props: InputProps) => {
+  const { style, ...rest } = props ?? {};
+  return (
+    <Input {...rest} style={{ ...style, flexDirection: "row" }} type="date" />
+  );
+};
+
+export type TextareaProps = typeof StyledTextArea["defaultProps"];
 
 const StyledTextArea = styled.textarea<{
   onChangeText?: (value: string) => void;
@@ -108,7 +120,7 @@ const StyledTextArea = styled.textarea<{
   };
 });
 
-export const TextArea = (props: typeof StyledTextArea["defaultProps"]) => {
+export const Textarea = (props: TextareaProps) => {
   const { onChangeText, onChange, onKeyUp, onSubmitEditting, ...rest } =
     props ?? {};
 
@@ -137,7 +149,7 @@ export const BoxSpace = (props: BoxSpaceProps) => {
   const size = b
     ? SIZES.content
     : c
-    ? SIZES.contentlarge
+    ? SIZES.contentLarge
     : d
     ? SIZES.container
     : e
@@ -145,7 +157,7 @@ export const BoxSpace = (props: BoxSpaceProps) => {
     : f
     ? SIZES.header
     : g
-    ? SIZES.pinspacing
+    ? SIZES.pinSpacing
     : SIZES.padding;
 
   return <View width={size} height={size} />;

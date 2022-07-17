@@ -1,12 +1,5 @@
 export interface DataSiswa {
-  wali: OrangTua;
-  ayah: OrangTua;
-  ibu: OrangTua;
-  siswa: Siswa;
-}
-
-export interface Siswa {
-  id: string;
+  _id: string;
   token: string;
   checked: boolean;
   namaLengkap: string;
@@ -19,24 +12,27 @@ export interface Siswa {
   noAktaLahir: string;
   kepercayaan: string;
   kewarganegaraan: string;
-  kebutuhanKhusus: boolean;
+  kebutuhanKhusus: string;
   alamat: string;
-  kodePos: string;
+  kodePos: number;
   tempatTinggal: string;
   modaTransportasi: string;
   anakKe: string;
   punyaKip: boolean;
   noKip: string;
-  telponRumah: string;
   pilihanJurusan: string[];
   jenisPendaftaran: string;
   asalSekolah: string;
+  ayah: OrangTua[];
+  ibu: OrangTua[];
+  wali: OrangTua[];
 }
 
 export interface OrangTua {
+  _id: string;
   nama: string;
   nik: string;
-  tahunLahir: string;
+  tahunLahir: number;
   pendidikan: string;
   pekerjaan: string;
   penghasilanBulanan: string;
