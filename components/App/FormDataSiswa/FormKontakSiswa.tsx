@@ -37,26 +37,31 @@ const FormKontakSiswa = () => {
       <FormInput
         onChangeText={(telpRumah) => setDataSiswa({ telpRumah })}
         value={telpRumah}
+        type="number"
         title="Nomor Telepon Rumah"
       />
       <FormInput
         onChangeText={(hpAyah) => setDataSiswa({ hpAyah })}
         value={hpAyah}
+        type="number"
         title="Nomor HP Ayah Kandung"
       />
       <FormInput
         onChangeText={(hpIbu) => setDataSiswa({ hpIbu })}
         value={hpIbu}
+        type="number"
         title="Nomor HP Ibu Kandung"
       />
       <FormInput
         onChangeText={(hpWali) => setDataSiswa({ hpWali })}
         value={hpWali}
+        type="number"
         title="Nomor HP Ibu Kandung"
       />
       <FormInput
         onChangeText={(noHp) => setDataSiswa({ noHp })}
         value={noHp}
+        type="number"
         title="Nomor HP Peserta Didik"
       />
 
@@ -75,7 +80,7 @@ const FormKontakSiswa = () => {
                   value === "" || dataSocmed?.[index]?.length > 0
                     ? undefined
                     : "";
-                setDataSiswa({ socmed: dataSocmed });
+                setDataSiswa({ [dt.key]: dataSocmed });
               }}
               data={dt.keys.map((name, index) => {
                 return { name, value: dt.variable?.[index] ?? "{[]}" };

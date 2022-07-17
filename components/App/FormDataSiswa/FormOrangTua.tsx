@@ -27,6 +27,7 @@ const FormDataOrangTua = (props: OrtuProps) => {
       <FormInput
         value={nik}
         title="NIK"
+        type="number"
         onChangeText={(nik) => setDataOrtu(key, { nik })}
       />
       <FormInput

@@ -52,11 +52,13 @@ const DataPribadiSiswa = () => {
       <FormInput
         onChangeText={(nisn) => setDataSiswa({ nisn })}
         value={nisn}
+        type="number"
         title="NISN"
       />
       <FormInput
         onChangeText={(nik) => setDataSiswa({ nik })}
         value={nik}
+        type="number"
         title="NIK"
       />
       <FormInput
@@ -157,6 +159,7 @@ const DataPribadiSiswa = () => {
       <FormInput
         onChangeText={(anakKe) => setDataSiswa({ anakKe })}
         value={anakKe}
+        type="number"
         title="Anak Keberapa"
       />
       <FormRadio
