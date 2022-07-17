@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { COLLECTIONS, DB_NAME, mongoClient } from "@helpers";
+import { COLLECTIONS, DB_NAME, mongoClient } from "@server";
 
 const { AYAH, IBU, SISWA, WALI } = COLLECTIONS;
 

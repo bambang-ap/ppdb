@@ -1,5 +1,5 @@
 import { btoa } from "abab";
-import { COLLECTIONS, DB_NAME, mongoClient } from "@helpers";
+import { COLLECTIONS, DB_NAME, mongoClient } from "@server";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,4 +1,4 @@
-import { COLLECTIONS, DB_NAME, mongoClient } from "@helpers";
+import { mongoClient, COLLECTIONS, DB_NAME } from "@server";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
