@@ -1,1 +1,8 @@
-export * from './mongodb'
+export * from "./mongodb";
+
+export enum METHODS {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}

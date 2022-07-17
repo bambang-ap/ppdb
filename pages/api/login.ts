@@ -1,6 +1,7 @@
 import { btoa } from "abab";
 import { COLLECTIONS, DB_NAME, mongoClient } from "@server";
 import { NextApiRequest, NextApiResponse } from "next";
+import { User } from "@type/User";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password: pass } = req.query as Record<string, string>;
@@ -11,14 +12,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const data = await conn
     .db(DB_NAME)
     .collection(COLLECTIONS.USER)
-    .findOne({ username, password });
+    .findOne<User>({ username, password });
   conn.close();
 
-  if (data) {
-    res.status(200);
-    res.send(data);
-  } else {
-    res.status(500);
-    res.send({ status: 500, msg: "User not found" });
-  }
+  if (data) res.status(200).send(data);
+  else res.status(500).send({ msg: "User not found" });
 };

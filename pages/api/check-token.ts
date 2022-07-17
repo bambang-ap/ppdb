@@ -11,11 +11,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .findOne({ token, registered: false });
   conn.close();
 
-  if (data) {
-    res.status(200);
-    res.send(true);
-  } else {
-    res.status(500);
-    res.send({ status: 500, msg: "Token invalid" });
-  }
+  if (data) res.status(200).send(true);
+  else res.status(500).send({ msg: "Token invalid" });
 };

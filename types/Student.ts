@@ -1,4 +1,10 @@
-export interface DataSiswa {
+export type DataSiswa = StudentData & {
+  ayah: OrangTua[];
+  ibu: OrangTua[];
+  wali: OrangTua[];
+};
+
+export interface StudentData {
   _id: string;
   token: string;
   checked: boolean;
@@ -23,9 +29,6 @@ export interface DataSiswa {
   pilihanJurusan: string[];
   jenisPendaftaran: string;
   asalSekolah: string;
-  ayah: OrangTua[];
-  ibu: OrangTua[];
-  wali: OrangTua[];
   telpRumah: string;
   hpAyah: string;
   hpIbu: string;
