@@ -111,3 +111,48 @@ export const FormRadio = <T extends { name: string; value: any }>(
     </>
   );
 };
+
+export const FormCheckbox = <T extends { name: string; value: any }>(
+  props: Omit<FormRadioProps<T>, "value"> & { value: T["value"][] }
+) => {
+  const { title, value: selected, data, onChange } = props;
+
+  const [sizeOut, sizeIn] = [SIZES.content, SIZES.padding];
+
+  return (
+    <>
+      <Text>{title}</Text>
+      <BoxSpace />
+      <Wrapper wrap style={{ justifyContent: "flex-start" }}>
+        {data.map((radio) => {
+          const { name, value } = radio;
+
+          const isSelected = selected.includes(value);
+          const backgroundColor = isSelected ? COLORS.PINK : COLORS.WHITE;
+
+          return (
+            <Wrapper onClick={() => onChange(radio)} itemsCenter>
+              <View
+                itemsCenter
+                justifyCenter
+                width={sizeOut}
+                height={sizeOut}
+                style={{ backgroundColor: COLORS.PINK75 }}
+              >
+                <View
+                  width={sizeIn}
+                  height={sizeIn}
+                  style={{ backgroundColor }}
+                />
+              </View>
+              <BoxSpace />
+              <Text flex>{name}</Text>
+              <BoxSpace />
+            </Wrapper>
+          );
+        })}
+      </Wrapper>
+      <BoxSpace b />
+    </>
+  );
+};

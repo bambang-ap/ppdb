@@ -41,8 +41,11 @@
       "@type": [
         "./types"
       ],
-      "@type/*": [
-        "./types/*"
+      "@atoms": [
+        "./recoil/atoms"
+      ],
+      "@selectors": [
+        "./recoil/selectors"
       ],
       "@styles/*": [
         "./styles/*"

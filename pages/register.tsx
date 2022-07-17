@@ -1,5 +1,5 @@
 import { FormDataSiswa } from "@appComponent";
-import { Container } from "@components";
+import { Button, Container } from "@components";
 import { PATHS } from "@constants";
 import { queryParamsToObject } from "@helpers";
 import { DataSiswa } from "@type/Student";
@@ -27,13 +27,14 @@ const Register = () => {
   };
 
   useLayoutEffect(() => {
-    // const query = queryParamsToObject(location.search);
-    // checkToken(query.token);
+    const query = queryParamsToObject(location.search);
+    checkToken(query.token);
   }, []);
 
   return (
     <Container>
       <FormDataSiswa data={student} />
+      <Button onClick={() => console.log(student)}>Show Data</Button>
     </Container>
   );
 };

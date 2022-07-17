@@ -23,7 +23,7 @@ export const FormDataOrangTua = (props: OrtuProps) => {
       <FormInput value={nama} title="Nama" />
       <FormInput value={nik} title="NIK" />
       <FormInput value={hp} title="Nomor Handphone" />
-      <FormInput value={tahunLahir} title="Tahun Lahir" />
+      <FormInput type="number" value={tahunLahir} title="Tahun Lahir" />
       <FormRadio
         value={pendidikan}
         title="Pendidikan"

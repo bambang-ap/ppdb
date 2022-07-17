@@ -1,12 +1,10 @@
 import {
+  FormCheckbox,
   FormInput,
   FormInputDate,
   FormRadio,
   FormTextarea,
-  Input,
-  InputDate,
   Text,
-  Textarea,
 } from "@components";
 import { DataSiswa, OrangTua } from "@type/Student";
 import { FormDataOrangTua } from "./FormOrangTua";
@@ -23,7 +21,6 @@ export const FormDataSiswa = (props: Props) => {
     alamat,
     anakKe,
     asalSekolah,
-    checked,
     jenKel,
     jenisPendaftaran,
     kebutuhanKhusus,
@@ -42,11 +39,11 @@ export const FormDataSiswa = (props: Props) => {
     tanggalLahir,
     tempatLahir,
     tempatTinggal,
-    token,
   } = siswa;
 
   return (
     <>
+      <Text alignCenter>Data Pribadi Calon Peserta Didik</Text>
       <FormInput value={namaLengkap} title="Nama Lengkap" />
       <FormInput value={noHp} title="Nomor HP" />
       <FormRadio
@@ -108,18 +105,18 @@ export const FormDataSiswa = (props: Props) => {
         onChange={(value) => console.log(value)}
       />
       <FormTextarea value={alamat} title="Alamat" />
-      <FormInput value={kodePos} title="Kode POS" />
+      <FormInput type="number" value={kodePos} title="Kode POS" />
       <FormRadio
         value={tempatTinggal}
         title="Tempat Tinggal"
         onChange={() => null}
         data={[
-          { name: "Bersama Orang Tua", value: '1' },
-          { name: "Wali", value: '2' },
-          { name: "Kos", value: '3' },
-          { name: "Asrama", value: '4' },
-          { name: "Panti Asuhan", value: '5' },
-          { name: "Lainnya", value: '9' },
+          { name: "Bersama Orang Tua", value: "1" },
+          { name: "Wali", value: "2" },
+          { name: "Kos", value: "3" },
+          { name: "Asrama", value: "4" },
+          { name: "Panti Asuhan", value: "5" },
+          { name: "Lainnya", value: "9" },
         ]}
       />
       <FormInput value={modaTransportasi} title="Moda Transportasi" />
@@ -128,12 +125,12 @@ export const FormDataSiswa = (props: Props) => {
         title="Moda Transportasi"
         onChange={() => null}
         data={[
-          { name: "Jalan Kaki", value: '1' },
-          { name: "Kendaraan Pribadi", value: '2' },
-          { name: "Kendaraan Umum / Angkutan", value: '3' },
-          { name: "Jemputan Pribadi", value: '4' },
-          { name: "Ojek", value: '5' },
-          { name: "Lainnya", value: '6' },
+          { name: "Jalan Kaki", value: "1" },
+          { name: "Kendaraan Pribadi", value: "2" },
+          { name: "Kendaraan Umum / Angkutan", value: "3" },
+          { name: "Jemputan Pribadi", value: "4" },
+          { name: "Ojek", value: "5" },
+          { name: "Lainnya", value: "6" },
         ]}
       />
       <FormInput value={anakKe} title="Anak Keberapa" />
@@ -147,12 +144,36 @@ export const FormDataSiswa = (props: Props) => {
         ]}
       />
       {punyaKip && <FormInput value={noKip} title="Nomor KIP" />}
-      <Text>Data Ayah</Text>
+      <Text alignCenter>Data Ayah Kandung</Text>
       <FormDataOrangTua data={ayah} />
-      <Text>Data Ibu</Text>
+      <Text alignCenter>Data Ibu Kandung</Text>
       <FormDataOrangTua data={ibu} />
-      <Text>Data Wali (Jika ada)</Text>
+      <Text alignCenter>Data Wali Peserta Didik(Jika ada)</Text>
       <FormDataOrangTua data={wali} />
+      <Text alignCenter>Registrasi Peserta Didik</Text>
+      <FormRadio
+        value={jenisPendaftaran}
+        title="Jenis Pendaftaran"
+        onChange={() => null}
+        data={[
+          { name: "Siswa Baru", value: "1" },
+          { name: "Pindahan", value: "2" },
+          { name: "Kembali Bersekolah", value: "3" },
+        ]}
+      />
+      <FormCheckbox
+        value={pilihanJurusan}
+        title="Kompetensi Keahlian yang dipilih"
+        onChange={() => null}
+        data={[
+          { name: "Akuntansi & Keuangan Lembaga", value: "1" },
+          { name: "Multimedia & Desain Grafis", value: "2" },
+          { name: "Teknik Komputer & Jaringan", value: "3" },
+          { name: "Teknik Kendaraan Ringan Otomotif", value: "4" },
+        ]}
+      />
+      <FormInput value={nisn} title="NISN" disabled />
+      <FormInput value={asalSekolah} title="Nama Asal Sekolah" />
     </>
   );
 };

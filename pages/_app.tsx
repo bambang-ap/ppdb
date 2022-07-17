@@ -1,8 +1,9 @@
 import React from "react";
-
-import { AppProps } from "next/app";
-
 import Head from "next/head";
+import { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
+
+import "@utils/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -10,7 +11,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>PPDB (Penerimaan Peserta Didik Baru)</title>
       </Head>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </>
   );
 };
