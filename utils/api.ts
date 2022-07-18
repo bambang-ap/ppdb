@@ -1,7 +1,9 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { User } from "@type/User";
 import { toQueryParams } from "@helpers";
 import { DataSiswa } from "@type/Student";
+
+type Message = { msg: string };
 
 export const ApiClient = {
   login(username: string, password: string) {
@@ -12,10 +14,16 @@ export const ApiClient = {
   checkToken(token: string) {
     return axios.get<boolean>(`/api/check-token?${toQueryParams({ token })}`);
   },
-  listStudents() {
-    return axios.get<DataSiswa[]>(`/api/students`);
+  insertStudent(body: DataSiswa) {
+    return axios.post<DataSiswa, AxiosResponse<Message>>(`/api/students`, body);
+  },
+  updateStudent(body: DataSiswa) {
+    return axios.put<DataSiswa, AxiosResponse<Message>>(`/api/students`, body);
   },
   getStudent(id: string) {
     return axios.get<DataSiswa>(`/api/students?${toQueryParams({ id })}`);
+  },
+  listStudents() {
+    return axios.get<DataSiswa[]>(`/api/students`);
   },
 };

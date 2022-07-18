@@ -37,7 +37,7 @@ export const FormDataSiswa = (props: FormDataSiswaProps) => {
       </View>
 
       <View style={style}>
-        <FormKontakSiswa />
+        <FormKontakSiswa {...props} />
       </View>
     </>
   );

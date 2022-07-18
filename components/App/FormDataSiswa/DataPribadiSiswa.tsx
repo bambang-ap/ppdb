@@ -94,9 +94,20 @@ const DataPribadiSiswa = ({ editable }: FormDataSiswaProps) => {
           { name: "Budha", value: "5" },
           { name: "Khonghucu", value: "6" },
           { name: "Adat/Tradisi", value: "7" },
-          { name: "Lainnya", value: kepercayaan },
+          {
+            name: "Lainnya",
+            value: !kepercayaan?.match?.(/[1-7]/) ? kepercayaan : "",
+          },
         ]}
       />
+      {!kepercayaan?.match?.(/[1-7]/) && (
+        <FormInput
+          disabled={!editable}
+          onChangeText={(kepercayaan) => setDataSiswa({ kepercayaan })}
+          value={kepercayaan}
+          title="Kepercayaan"
+        />
+      )}
       <FormRadio
         value={kewarganegaraan}
         title="Kewarganegaraan"

@@ -102,7 +102,7 @@ const updateData = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await session.withTransaction(
       async () => {
-        const dataSiswa: StudentData = { ...siswa, _id, checked: false };
+        const dataSiswa: StudentData = { ...siswa, _id };
         return await Promise.all([
           database
             .collection<OrangTua>(AYAH)

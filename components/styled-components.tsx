@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { FlexAll, FlexBox, getFlexBox } from "@type/flexBox.type";
 import { COLORS, SIZES, TEXT_SIZES } from "@constants";
+import { useEffect, useRef } from "react";
 
 export const View = styled.div<FlexBox>((props) => {
   const { flexBoxStyleProps } = getFlexBox(props);
@@ -74,7 +75,7 @@ const StyledInput = styled.input<{
 });
 
 export const Input = (props: InputProps) => {
-  const { onChangeText, onChange, onKeyUp, onSubmitEditting, ...rest } =
+  const { onChangeText, onChange, onKeyUp, value, onSubmitEditting, ...rest } =
     props ?? {};
 
   return (
@@ -83,6 +84,7 @@ export const Input = (props: InputProps) => {
         onChangeText?.(event.target.value);
         onChange?.(event);
       }}
+      defaultValue={value}
       onKeyUp={(event) => {
         if (event.key === "Enter") onSubmitEditting?.();
         onKeyUp?.(event);

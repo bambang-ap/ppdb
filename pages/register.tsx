@@ -9,16 +9,15 @@ import { useLayoutEffect } from "react";
 
 const Register = () => {
   const { replace } = useRouter();
-  const { data, init: setDataSiswa } = useDataSiswa();
+  const { data, init } = useDataSiswa();
 
   const checkToken = async (token: string) => {
+    init({});
     if (!token) {
       alert("Token invalid");
       replace(PATHS.LOGIN);
     }
     const { data } = await ApiClient.checkToken(token);
-
-    ApiClient.getStudent("1").then(({ data }) => setDataSiswa(data));
 
     if (data) return;
 
@@ -26,15 +25,26 @@ const Register = () => {
     replace(PATHS.LOGIN);
   };
 
+  const register = async () => {
+    try {
+      const { status, data: resp } = await ApiClient.insertStudent(data);
+      alert(resp.msg);
+      replace(PATHS.LOGIN);
+    } catch (err) {
+      alert(err?.response?.data?.msg);
+    }
+  };
+
   useLayoutEffect(() => {
-    // const query = queryParamsToObject(location.search);
-    // checkToken(query.token);
+    const query = queryParamsToObject(location.search);
+    checkToken(query.token);
   }, []);
 
   return (
     <Container>
-      <FormDataSiswa />
-      <Button onClick={() => console.log(data)}>Show Data</Button>
+      <Button onClick={() => init({})}>Show Data</Button>
+      <FormDataSiswa editable />
+      <Button onClick={register}>Show Data</Button>
     </Container>
   );
 };

@@ -13,9 +13,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     (await conn
       .db(DB_NAME)
       .collection(COLLECTIONS.USER)
-      .findOne<User>({ username, password })) ?? {};
+      .findOne<User>({ username, password })) ?? {} as User;
   conn.close();
 
-  if (data) res.status(200).send(data);
+  if (data?._id) res.status(200).send(data);
   else res.status(500).send({ msg: "User not found" });
 };
