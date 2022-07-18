@@ -28,7 +28,7 @@ const Register = () => {
   const register = async () => {
     try {
       const {  data: resp } = await ApiClient.insertStudent(data);
-      alert(resp.msg);
+      alert(`${resp.msg} - Silahkan login dengan username dan password menggunakan NISN`);
       replace(PATHS.LOGIN);
     } catch (err) {
       // @ts-ignore
