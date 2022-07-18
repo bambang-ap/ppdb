@@ -6,30 +6,34 @@ import DataPribadiSiswa from "./DataPribadiSiswa";
 import FormKontakSiswa from "./FormKontakSiswa";
 import RegistrasiPesertaDidik from "./RegistrasiPesertaDidik";
 
-export const FormDataSiswa = () => {
+export type FormDataSiswaProps = {
+  editable?: boolean;
+};
+
+export const FormDataSiswa = (props: FormDataSiswaProps) => {
   return (
     <>
       <View style={style}>
-        <DataPribadiSiswa />
+        <DataPribadiSiswa {...props} />
       </View>
 
       <View style={style}>
-        <RegistrasiPesertaDidik />
+        <RegistrasiPesertaDidik {...props} />
       </View>
 
       <View style={style}>
         <Text alignCenter>Data Ayah Kandung</Text>
-        <FormDataOrangTua id={StudentKey.AYAH} />
+        <FormDataOrangTua id={StudentKey.AYAH} {...props} />
       </View>
 
       <View style={style}>
         <Text alignCenter>Data Ibu Kandung</Text>
-        <FormDataOrangTua id={StudentKey.IBU} />
+        <FormDataOrangTua id={StudentKey.IBU} {...props} />
       </View>
 
       <View style={style}>
         <Text alignCenter>Data Wali Peserta Didik(Jika ada)</Text>
-        <FormDataOrangTua id={StudentKey.WALI} />
+        <FormDataOrangTua id={StudentKey.WALI} {...props} />
       </View>
 
       <View style={style}>

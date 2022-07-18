@@ -6,8 +6,9 @@ import {
   Text,
 } from "@components";
 import { useDataSiswa } from "@hooks";
+import { FormDataSiswaProps } from "@appComponent";
 
-const DataPribadiSiswa = () => {
+const DataPribadiSiswa = ({ editable }: FormDataSiswaProps) => {
   const { data, setDataSiswa } = useDataSiswa();
 
   const {
@@ -36,6 +37,7 @@ const DataPribadiSiswa = () => {
     <>
       <Text alignCenter>Data Pribadi Calon Peserta Didik</Text>
       <FormInput
+        disabled={!editable}
         value={namaLengkap}
         title="Nama Lengkap"
         onChangeText={(namaLengkap) => setDataSiswa({ namaLengkap })}
@@ -43,31 +45,39 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={jenKel}
         title="Jenis Kelamin"
-        onChange={({ value }) => setDataSiswa({ jenKel: value })}
+        onChange={({ value }) => setDataSiswa({ jenKel: value }, editable)}
         data={[
           { name: "Laki-laki", value: "1" },
           { name: "Perempuan", value: "2" },
         ]}
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(nisn) => setDataSiswa({ nisn })}
         value={nisn}
         type="number"
         title="NISN"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(nik) => setDataSiswa({ nik })}
         value={nik}
         type="number"
         title="NIK"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(tempatLahir) => setDataSiswa({ tempatLahir })}
         value={tempatLahir}
         title="Tempat Lahir"
       />
-      <FormInputDate value={tanggalLahir} title="Tanggal Lahir" />
+      <FormInputDate
+        disabled={!editable}
+        value={tanggalLahir}
+        title="Tanggal Lahir"
+      />
       <FormInput
+        disabled={!editable}
         onChangeText={(noAktaLahir) => setDataSiswa({ noAktaLahir })}
         value={noAktaLahir}
         title="Nomor Akta Lahir"
@@ -75,7 +85,7 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={kepercayaan}
         title="Kepercayaan"
-        onChange={({ value }) => setDataSiswa({ kepercayaan: value })}
+        onChange={({ value }) => setDataSiswa({ kepercayaan: value }, editable)}
         data={[
           { name: "Islam", value: "1" },
           { name: "Kristen/ Protestan", value: "2" },
@@ -90,7 +100,9 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={kewarganegaraan}
         title="Kewarganegaraan"
-        onChange={({ value }) => setDataSiswa({ kewarganegaraan: value })}
+        onChange={({ value }) =>
+          setDataSiswa({ kewarganegaraan: value }, editable)
+        }
         data={[
           { name: "Indonesia (WNI)", value: "indonesia" },
           {
@@ -101,6 +113,7 @@ const DataPribadiSiswa = () => {
       />
       {!isWni && (
         <FormInput
+          disabled={!editable}
           onChangeText={(kewarganegaraan) => setDataSiswa({ kewarganegaraan })}
           value={kewarganegaraan}
           title="Nama Negara"
@@ -121,10 +134,13 @@ const DataPribadiSiswa = () => {
           { name: "Down Sindrome", value: "9" },
           { name: "Autis", value: "10" },
         ]}
-        onChange={({ value }) => setDataSiswa({ kebutuhanKhusus: value })}
+        onChange={({ value }) =>
+          setDataSiswa({ kebutuhanKhusus: value }, editable)
+        }
       />
-      <FormTextarea value={alamat} title="Alamat" />
+      <FormTextarea disabled={!editable} value={alamat} title="Alamat" />
       <FormInput
+        disabled={!editable}
         onChangeText={(kodePos) => setDataSiswa({ kodePos: Number(kodePos) })}
         type="number"
         value={kodePos}
@@ -133,7 +149,9 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={tempatTinggal}
         title="Tempat Tinggal"
-        onChange={({ value }) => setDataSiswa({ tempatTinggal: value })}
+        onChange={({ value }) =>
+          setDataSiswa({ tempatTinggal: value }, editable)
+        }
         data={[
           { name: "Bersama Orang Tua", value: "1" },
           { name: "Wali", value: "2" },
@@ -146,7 +164,9 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={modaTransportasi}
         title="Moda Transportasi"
-        onChange={({ value }) => setDataSiswa({ modaTransportasi: value })}
+        onChange={({ value }) =>
+          setDataSiswa({ modaTransportasi: value }, editable)
+        }
         data={[
           { name: "Jalan Kaki", value: "1" },
           { name: "Kendaraan Pribadi", value: "2" },
@@ -157,6 +177,7 @@ const DataPribadiSiswa = () => {
         ]}
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(anakKe) => setDataSiswa({ anakKe })}
         value={anakKe}
         type="number"
@@ -165,7 +186,7 @@ const DataPribadiSiswa = () => {
       <FormRadio
         value={punyaKip}
         title="Punya KIP"
-        onChange={({ value }) => setDataSiswa({ punyaKip: value })}
+        onChange={({ value }) => setDataSiswa({ punyaKip: value }, editable)}
         data={[
           { name: "Ya", value: true },
           { name: "Tidak", value: false },
@@ -173,6 +194,7 @@ const DataPribadiSiswa = () => {
       />
       {punyaKip && (
         <FormInput
+          disabled={!editable}
           onChangeText={(noKip) => setDataSiswa({ noKip })}
           value={noKip}
           title="Nomor KIP"

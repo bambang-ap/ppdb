@@ -1,8 +1,9 @@
 import { FormCheckbox, FormInput, Text, BoxSpace } from "@components";
 import { useDataSiswa } from "@hooks";
 import { DataSiswa } from "@type/Student";
+import { FormDataSiswaProps } from "@appComponent";
 
-const FormKontakSiswa = () => {
+const FormKontakSiswa = ({ editable }: FormDataSiswaProps) => {
   const { data, setDataSiswa } = useDataSiswa();
 
   const { noHp, telpRumah, hpAyah, hpIbu, hpWali, socmed, info } = data ?? {};
@@ -35,30 +36,35 @@ const FormKontakSiswa = () => {
     <>
       <Text alignCenter>Kontak Yang Bisa Dihubungi</Text>
       <FormInput
+        disabled={!editable}
         onChangeText={(telpRumah) => setDataSiswa({ telpRumah })}
         value={telpRumah}
         type="number"
         title="Nomor Telepon Rumah"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(hpAyah) => setDataSiswa({ hpAyah })}
         value={hpAyah}
         type="number"
         title="Nomor HP Ayah Kandung"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(hpIbu) => setDataSiswa({ hpIbu })}
         value={hpIbu}
         type="number"
         title="Nomor HP Ibu Kandung"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(hpWali) => setDataSiswa({ hpWali })}
         value={hpWali}
         type="number"
         title="Nomor HP Ibu Kandung"
       />
       <FormInput
+        disabled={!editable}
         onChangeText={(noHp) => setDataSiswa({ noHp })}
         value={noHp}
         type="number"
@@ -73,6 +79,8 @@ const FormKontakSiswa = () => {
               value={dt.variable}
               title={dt.name}
               onChange={({ value }, index) => {
+                if (!editable) return;
+                
                 const dataSocmed = (dt.variable?.slice?.() ??
                   Array.from({ length: 5 })) as DataSiswa["socmed"];
                 dataSocmed[index] =
@@ -93,6 +101,7 @@ const FormKontakSiswa = () => {
                 <FormInput
                   title={val}
                   value={value}
+                  disabled={!editable}
                   onChangeText={(value) => {
                     const dataSocmed =
                       dt.variable?.slice?.() as DataSiswa["socmed"];

@@ -1,21 +1,27 @@
 import { Container, View, Input, Button } from "@components";
 import { PATHS } from "@constants";
+import { atomUserData } from "@recoil/atoms";
 import { ApiClient, storageUserData } from "@utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 const Login = () => {
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const doLogin = async () => {
-    const resp = await ApiClient.login(username, password);
-    console.log(resp);
-    if (!resp) return;
+  const setUserData = useSetRecoilState(atomUserData);
 
-    storageUserData.set(resp);
+  const doLogin = async () => {
+    const { data, status } = await ApiClient.login(username, password);
+
+    if (status !== 200) return;
+
+    storageUserData.set(data);
+    setUserData(data);
+    replace(PATHS.APP);
   };
 
   return (

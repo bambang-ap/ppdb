@@ -6,20 +6,19 @@ import { storageUserData } from "@utils";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-const App = () => {
+const ListSiswa = () => {
   const { replace } = useRouter();
 
   useEffect(() => {
     const userData = storageUserData.get();
-    if (userData?.role === USER_ROLES.SISWA)
-      replace(`${PATHS.SISWA}/${userData._id}`);
+    if (userData?.role !== USER_ROLES.ADMIN) replace(PATHS.APP);
   }, []);
 
   return (
     <Container>
-      <Header title="PPDB (Penerimaan Peserta Didik Baru)" />
+      <Header title="Data Siswa" />
     </Container>
   );
 };
 
-export default App;
+export default ListSiswa;

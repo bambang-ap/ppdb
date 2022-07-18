@@ -9,10 +9,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const password = btoa(pass);
 
   const conn = await mongoClient.connect();
-  const data = await conn
-    .db(DB_NAME)
-    .collection(COLLECTIONS.USER)
-    .findOne<User>({ username, password });
+  const { password: _, ...data } =
+    (await conn
+      .db(DB_NAME)
+      .collection(COLLECTIONS.USER)
+      .findOne<User>({ username, password })) ?? {};
   conn.close();
 
   if (data) res.status(200).send(data);

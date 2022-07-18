@@ -2,8 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { COLLECTIONS, DB_NAME, METHODS, mongoClient } from "@server";
 import { DataSiswa, OrangTua, StudentData } from "@type/Student";
 import { v4 } from "uuid";
+import { User, USER_ROLES } from "@type/User";
+import { btoa } from "abab";
 
-const { AYAH, IBU, SISWA, WALI } = COLLECTIONS;
+const { AYAH, IBU, SISWA, WALI, USER } = COLLECTIONS;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
@@ -45,6 +47,9 @@ const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
     ...siswa
   }: DataSiswa = req.body;
   const _id = v4();
+  const { nisn, namaLengkap } = siswa ?? {};
+
+  if (!nisn) return res.status(500).send({ msg: "NISN not included" });
 
   const connection = await mongoClient.connect();
   const database = connection.db(DB_NAME);
@@ -59,6 +64,14 @@ const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
           database.collection<OrangTua>(IBU).insertOne({ ...ibu, _id }),
           database.collection<OrangTua>(WALI).insertOne({ ...wali, _id }),
           database.collection<StudentData>(SISWA).insertOne(dataSiswa),
+          database.collection<User>(USER).insertOne({
+            _id,
+            image: "",
+            username: nisn,
+            name: namaLengkap,
+            password: btoa(nisn) ?? "",
+            role: USER_ROLES.SISWA,
+          }),
         ]);
       },
       { readConcern: { level: "majority" }, writeConcern: { w: "majority" } }

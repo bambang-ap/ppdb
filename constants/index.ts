@@ -10,5 +10,7 @@ export enum Sheets {
 export enum PATHS {
   LOGIN = "/login",
   REGISTER = "/register",
-  AUTH = "/auth",
+  APP = "/app",
+  // Add id to SISWA path
+  SISWA = "/app/siswa",
 }

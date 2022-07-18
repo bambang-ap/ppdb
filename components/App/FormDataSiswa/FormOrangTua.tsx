@@ -1,13 +1,14 @@
 import { FormInput, FormRadio, Input } from "@components";
 import { useDataSiswa } from "@hooks";
 import { StudentKey } from "@type/Student";
+import { FormDataSiswaProps } from "@appComponent";
 
 type OrtuProps = {
   id: StudentKey;
-};
+} & FormDataSiswaProps;
 
 const FormDataOrangTua = (props: OrtuProps) => {
-  const { id: key } = props;
+  const { id: key, editable } = props;
 
   const {
     data: { [key]: data },
@@ -20,17 +21,20 @@ const FormDataOrangTua = (props: OrtuProps) => {
   return (
     <>
       <FormInput
+        disabled={!editable}
         value={nama}
         title="Nama"
         onChangeText={(nama) => setDataOrtu(key, { nama })}
       />
       <FormInput
+        disabled={!editable}
         value={nik}
         title="NIK"
         type="number"
         onChangeText={(nik) => setDataOrtu(key, { nik })}
       />
       <FormInput
+        disabled={!editable}
         type="number"
         value={tahunLahir}
         title="Tahun Lahir"
@@ -41,7 +45,9 @@ const FormDataOrangTua = (props: OrtuProps) => {
       <FormRadio
         value={pendidikan}
         title="Pendidikan"
-        onChange={({ value }) => setDataOrtu(key, { pendidikan: value })}
+        onChange={({ value }) =>
+          setDataOrtu(key, { pendidikan: value }, editable)
+        }
         data={[
           { name: "Tidak Sekolah", value: "1" },
           { name: "Putus SD", value: "2" },
@@ -59,7 +65,9 @@ const FormDataOrangTua = (props: OrtuProps) => {
       <FormRadio
         value={pekerjaan}
         title="Pekerjaan"
-        onChange={({ value }) => setDataOrtu(key, { pekerjaan: value })}
+        onChange={({ value }) =>
+          setDataOrtu(key, { pekerjaan: value }, editable)
+        }
         data={[
           { name: "Tidak Bekerja", value: "1" },
           { name: "Guru", value: "2" },
@@ -80,7 +88,7 @@ const FormDataOrangTua = (props: OrtuProps) => {
         value={penghasilanBulanan}
         title="Penghasilan Per Bulan"
         onChange={({ value }) =>
-          setDataOrtu(key, { penghasilanBulanan: value })
+          setDataOrtu(key, { penghasilanBulanan: value }, editable)
         }
         data={[
           { name: "Kurang dari 500.000", value: "1" },

@@ -8,7 +8,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     const user = storageUserData.get();
-    if (user) replace(PATHS.AUTH);
+    if (user) replace(PATHS.APP);
     else replace(PATHS.LOGIN);
   }, []);
 };

@@ -11,6 +11,4 @@ export enum COLLECTIONS {
   USER = "user",
 }
 
-export const mongoClient = new MongoClient(
-  `mongodb+srv://uci:1234ABcd@cluster0.aaqcovj.mongodb.net/?retryWrites=true&w=majority`
-);
+export const mongoClient = new MongoClient(process.env.MONGODB_URI ?? "");

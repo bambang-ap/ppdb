@@ -1,7 +1,8 @@
 import { FormCheckbox, FormInput, FormRadio, Text } from "@components";
 import { useDataSiswa } from "@hooks";
+import { FormDataSiswaProps } from "@appComponent";
 
-const RegistrasiPesertaDidik = () => {
+const RegistrasiPesertaDidik = ({ editable }: FormDataSiswaProps) => {
   const { data, setDataSiswa } = useDataSiswa();
 
   const { asalSekolah, jenisPendaftaran, nisn, pilihanJurusan } = data ?? {};
@@ -12,7 +13,9 @@ const RegistrasiPesertaDidik = () => {
       <FormRadio
         value={jenisPendaftaran}
         title="Jenis Pendaftaran"
-        onChange={({ value }) => setDataSiswa({ jenisPendaftaran: value })}
+        onChange={({ value }) =>
+          setDataSiswa({ jenisPendaftaran: value }, editable)
+        }
         data={[
           { name: "Siswa Baru", value: "1" },
           { name: "Pindahan", value: "2" },
@@ -26,8 +29,11 @@ const RegistrasiPesertaDidik = () => {
         onChange={({ value }) => {
           const prev = pilihanJurusan ?? [];
           if (prev.includes(value))
-            setDataSiswa({ pilihanJurusan: prev.filter((v) => v !== value) });
-          else setDataSiswa({ pilihanJurusan: [...prev, value] });
+            setDataSiswa(
+              { pilihanJurusan: prev.filter((v) => v !== value) },
+              editable
+            );
+          else setDataSiswa({ pilihanJurusan: [...prev, value] }, editable);
         }}
         data={[
           { name: "Akuntansi & Keuangan Lembaga", value: "1" },
@@ -38,6 +44,7 @@ const RegistrasiPesertaDidik = () => {
       />
       <FormInput value={nisn} title="NISN" disabled />
       <FormInput
+        disabled={!editable}
         onChangeText={(asalSekolah) => setDataSiswa({ asalSekolah })}
         value={asalSekolah}
         title="Nama Asal Sekolah"
