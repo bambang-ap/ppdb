@@ -27,10 +27,11 @@ const Register = () => {
 
   const register = async () => {
     try {
-      const { status, data: resp } = await ApiClient.insertStudent(data);
+      const {  data: resp } = await ApiClient.insertStudent(data);
       alert(resp.msg);
       replace(PATHS.LOGIN);
     } catch (err) {
+      // @ts-ignore
       alert(err?.response?.data?.msg);
     }
   };
