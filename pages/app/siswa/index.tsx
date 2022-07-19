@@ -1,6 +1,6 @@
 import { Header } from "@appComponent";
 import { Button, Container, Text, View, Wrapper } from "@components";
-import { PATHS } from "@constants";
+import { eID, PATHS } from "@constants";
 import { atomListSiswa, atomUserData } from "@recoil/atoms";
 import { ShortStudentData } from "@type/Student";
 import { USER_ROLES } from "@type/User";
@@ -15,7 +15,8 @@ export default () => {
   const userData = useRecoilValue(atomUserData);
 
   const navigate = (id: string) => {
-    push(`${PATHS.SISWA}/${id}`);
+    const path = PATHS.SISWA_ID.replace(eID, id);
+    push(path);
   };
 
   useEffect(() => {

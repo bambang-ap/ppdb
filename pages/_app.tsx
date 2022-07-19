@@ -6,6 +6,7 @@ import { atomUserData } from "@recoil/atoms";
 import { User } from "@type/User";
 
 import "./globals.css";
+import "../type";
 
 export default ({ Component, pageProps }: AppProps) => {
   return (

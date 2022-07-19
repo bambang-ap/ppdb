@@ -23,9 +23,9 @@ export default () => {
 
   const onCreate = async (user: User) => {
     try {
-      await ApiClient.insertUserData(user);
+      const { data } = await ApiClient.insertUserData(user);
       getData();
-      alert("Berhasil tambah user admin");
+      alert(data?.msg);
       setAdd(false);
     } catch (err) {
       // @ts-ignore

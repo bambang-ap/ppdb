@@ -9,6 +9,7 @@ export enum COLLECTIONS {
   WALI = "wali",
   TOKEN = "token",
   USER = "user",
+  HASIL_TEST = "hasil_test",
 }
 
 export const mongoClient = new MongoClient(process.env.MONGODB_URI ?? "");

@@ -1,7 +1,9 @@
 import { FormDataSiswa, Header } from "@appComponent";
-import { Button, Container, Wrapper } from "@components";
+import { BoxSpace, Button, Container, Wrapper } from "@components";
+import { eID, PATHS } from "@constants";
 import { useDataSiswa } from "@hooks";
 import { atomUserData } from "@recoil/atoms";
+import { ShortStudentData } from "@type/Student";
 import { USER_ROLES } from "@type/User";
 import { ApiClient } from "@utils";
 import { useRouter } from "next/router";
@@ -9,19 +11,34 @@ import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
 export default () => {
-  const { query } = useRouter();
   const { _id, role } = useRecoilValue(atomUserData);
+  const { query, push } = useRouter();
   const {
     data: { checked, namaLengkap, ...dataSiswa },
     init,
   } = useDataSiswa();
 
-  const title = `Siswa: ${namaLengkap || (query.id as string)}`;
-  const isSiswaNotChecked = _id === query.id && !checked;
-  const editable = role === USER_ROLES.ADMIN || isSiswaNotChecked;
+  const id = query.id as string;
+  const title = `Siswa: ${namaLengkap || (id as string)}`;
+  const isAdmin = role === USER_ROLES.ADMIN;
+  const isSiswaNotChecked = _id === id && !checked;
+  const editable = isAdmin || isSiswaNotChecked;
+
+  const navigatePenilaian = () => {
+    const { alamat, asalSekolah, nisn, noHp } = dataSiswa;
+    const pathname = PATHS.PENILAIAN_SISWA.replace(eID, id);
+    const query = {
+      alamat,
+      asalSekolah,
+      namaLengkap,
+      nisn,
+      noHp,
+    } as ShortStudentData;
+    push({ pathname, query });
+  };
 
   const getData = async () => {
-    const { data } = await ApiClient.getStudent(query.id as string);
+    const { data } = await ApiClient.getStudent(id as string);
     init(data);
   };
 
@@ -36,12 +53,18 @@ export default () => {
   };
 
   useEffect(() => {
-    if (query.id) getData();
-  }, [query]);
+    if (id) getData();
+  }, [id]);
 
   return (
     <Container>
       <Header title={title} />
+      {isAdmin && (
+        <>
+          <Button onClick={navigatePenilaian}>Penilaian</Button>
+          <BoxSpace b />
+        </>
+      )}
       <FormDataSiswa editable={editable} />
       <Wrapper>
         {editable && (

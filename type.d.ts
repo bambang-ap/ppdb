@@ -16,3 +16,10 @@ type ObjFromTuple<
   Type = boolean,
   Separator extends string = "-"
 > = KeysToCamelCase<Separator, Record<ToString<T, S>, Type>>;
+
+type MyObject<T = string> = Record<string, T>;
+
+interface Array<T> {
+  replace: (index: number, data: T) => T[];
+  remove: (index: number) => T[];
+}
