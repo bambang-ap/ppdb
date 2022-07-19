@@ -6,18 +6,15 @@ import { storageUserData } from "@utils";
 import { atomUserData } from "@recoil/atoms";
 import { User } from "@type/User";
 
+import "./globals.css";
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
-      <Head>
-        <link rel="stylesheet" href="globals.css"></link>
-      </Head>
-      <RecoilRoot>
-        <RenderComponent>
-          <Component {...pageProps} />
-        </RenderComponent>
-      </RecoilRoot>
-    </>
+    <RecoilRoot>
+      <RenderComponent>
+        <Component {...pageProps} />
+      </RenderComponent>
+    </RecoilRoot>
   );
 };
 

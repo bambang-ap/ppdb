@@ -4,14 +4,18 @@ export type DataSiswa = StudentData & {
   wali: OrangTua[];
 };
 
-export interface StudentData {
+export type ShortStudentData = {
   _id: string;
+  alamat: string;
+  asalSekolah: string;
+  namaLengkap: string;
+  nisn: string;
+  noHp: string;};
+
+export type StudentData = ShortStudentData & {
   token: string;
   checked: boolean;
-  namaLengkap: string;
-  noHp: string;
   jenKel: string;
-  nisn: string;
   nik: string;
   tempatLahir: string;
   tanggalLahir: string;
@@ -19,7 +23,6 @@ export interface StudentData {
   kepercayaan: string;
   kewarganegaraan: string;
   kebutuhanKhusus: string;
-  alamat: string;
   kodePos: number;
   tempatTinggal: string;
   modaTransportasi: string;
@@ -28,7 +31,7 @@ export interface StudentData {
   noKip: string;
   pilihanJurusan: string[];
   jenisPendaftaran: string;
-  asalSekolah: string;
+
   telpRumah: string;
   hpAyah: string;
   hpIbu: string;
@@ -44,7 +47,7 @@ export interface StudentData {
     guruSmk?: string,
     lain?: string
   ];
-}
+};
 
 export interface OrangTua {
   _id: string;

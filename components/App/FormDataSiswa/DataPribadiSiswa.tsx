@@ -149,7 +149,12 @@ const DataPribadiSiswa = ({ editable }: FormDataSiswaProps) => {
           setDataSiswa({ kebutuhanKhusus: value }, editable)
         }
       />
-      <FormTextarea disabled={!editable} value={alamat} title="Alamat" />
+      <FormTextarea
+        value={alamat}
+        title="Alamat"
+        disabled={!editable}
+        onChangeText={(alamat) => setDataSiswa({ alamat })}
+      />
       <FormInput
         disabled={!editable}
         onChangeText={(kodePos) => setDataSiswa({ kodePos: Number(kodePos) })}

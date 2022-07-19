@@ -1,4 +1,4 @@
-import { DataSiswa } from "@type/Student";
+import { DataSiswa, ShortStudentData } from "@type/Student";
 import { User } from "@type/User";
 import { atom } from "recoil";
 
@@ -10,4 +10,9 @@ export const atomStudent = atom({
 export const atomUserData = atom({
   key: "atomUserData",
   default: {} as User,
+});
+
+export const atomListSiswa = atom<ShortStudentData[]>({
+  key: "atomListSiswa",
+  default: [],
 });

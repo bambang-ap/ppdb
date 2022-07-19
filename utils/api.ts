@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { User } from "@type/User";
 import { toQueryParams } from "@helpers";
-import { DataSiswa } from "@type/Student";
+import { DataSiswa, ShortStudentData } from "@type/Student";
 
 type Message = { msg: string };
 
@@ -24,6 +24,6 @@ export const ApiClient = {
     return axios.get<DataSiswa>(`/api/students?${toQueryParams({ id })}`);
   },
   listStudents() {
-    return axios.get<DataSiswa[]>(`/api/students`);
+    return axios.get<ShortStudentData[]>(`/api/students`);
   },
 };

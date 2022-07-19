@@ -33,8 +33,13 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
     .toArray();
   connection.close();
 
-  if (!id) res.status(200).send(data);
-  else if (id && data.length === 1) res.status(200).send(data[0]);
+  if (!id) {
+    const shortData = data.map((siswa) => {
+      const { _id, namaLengkap, nisn, asalSekolah, noHp, alamat } = siswa;
+      return { _id, namaLengkap, nisn, asalSekolah, noHp, alamat };
+    });
+    res.status(200).send(shortData);
+  } else if (id && data.length === 1) res.status(200).send(data[0]);
   else res.status(500).send({ msg: "Student not found" });
 };
 

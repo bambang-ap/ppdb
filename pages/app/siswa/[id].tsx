@@ -30,7 +30,6 @@ const DataSiswa = () => {
       ...dataSiswa,
       namaLengkap,
       checked,
-      _id,
     };
     await ApiClient.updateStudent(params);
     getData();
@@ -45,9 +44,15 @@ const DataSiswa = () => {
       <Header title={title} />
       <FormDataSiswa editable={editable} />
       <Wrapper>
-        {editable && <Button onClick={() => updateData()}>Edit</Button>}
+        {editable && (
+          <Button flex onClick={() => updateData()}>
+            Edit
+          </Button>
+        )}
         {isSiswaNotChecked && (
-          <Button onClick={() => updateData(true)}>Check</Button>
+          <Button flex onClick={() => updateData(true)}>
+            Check
+          </Button>
         )}
       </Wrapper>
     </Container>
