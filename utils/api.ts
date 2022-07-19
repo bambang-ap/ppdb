@@ -29,4 +29,10 @@ export const ApiClient = {
   updateUserData(body: User) {
     return axios.put<User>(`/api/user`, body);
   },
+  insertUserData(body: User) {
+    return axios.post<User>(`/api/user`, body);
+  },
+  listUserData() {
+    return axios.get<User[]>(`/api/user`);
+  },
 };

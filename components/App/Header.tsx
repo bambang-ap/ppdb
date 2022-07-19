@@ -10,7 +10,7 @@ type Props = {
 
 export const Header = (props: Props) => {
   const { title } = props;
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
 
   const doLogout = () => {
     storageUserData.remove();
@@ -23,6 +23,7 @@ export const Header = (props: Props) => {
         <title>{title}</title>
       </Head>
       <Text>{title}</Text>
+      <Button onClick={() => push(PATHS.SETTINGS)}>Akun</Button>
       <Button onClick={doLogout}>Logout</Button>
     </Wrapper>
   );

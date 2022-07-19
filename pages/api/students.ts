@@ -1,6 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { COLLECTIONS, DB_NAME, METHODS, mongoClient } from "@server";
-import { DataSiswa, OrangTua, StudentData } from "@type/Student";
+import {
+  DataSiswa,
+  OrangTua,
+  ShortStudentData,
+  StudentData,
+} from "@type/Student";
 import { v4 } from "uuid";
 import { User, USER_ROLES } from "@type/User";
 import { btoa } from "abab";
@@ -26,20 +31,24 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
   const aggregations = id ? [{ $match: { _id: id } }, ...joiner] : joiner;
 
   const connection = await mongoClient.connect();
-  const data = await connection
-    .db(DB_NAME)
-    .collection(SISWA)
-    .aggregate<DataSiswa>(aggregations)
-    .toArray();
-  connection.close();
+  const collection = connection.db(DB_NAME).collection<ShortStudentData>(SISWA);
 
   if (!id) {
+    const data = await collection.find().toArray();
+    connection.close();
+
     const shortData = data.map((siswa) => {
       const { _id, namaLengkap, nisn, asalSekolah, noHp, alamat } = siswa;
       return { _id, namaLengkap, nisn, asalSekolah, noHp, alamat };
     });
-    res.status(200).send(shortData);
-  } else if (id && data.length === 1) res.status(200).send(data[0]);
+
+    return res.status(200).send(shortData);
+  }
+
+  const data = await collection.aggregate<DataSiswa>(aggregations).toArray();
+  connection.close();
+
+  if (id && data.length === 1) res.status(200).send(data[0]);
   else res.status(500).send({ msg: "Student not found" });
 };
 

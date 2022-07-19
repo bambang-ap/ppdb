@@ -16,3 +16,8 @@ export const atomListSiswa = atom<ShortStudentData[]>({
   key: "atomListSiswa",
   default: [],
 });
+
+export const atomListUsers = atom<User[]>({
+  key: "atomListUsers",
+  default: [],
+});
