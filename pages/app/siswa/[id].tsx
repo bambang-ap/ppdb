@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
-const DataSiswa = () => {
+export default () => {
   const { query } = useRouter();
   const { _id, role } = useRecoilValue(atomUserData);
   const {
@@ -58,5 +58,3 @@ const DataSiswa = () => {
     </Container>
   );
 };
-
-export default DataSiswa;

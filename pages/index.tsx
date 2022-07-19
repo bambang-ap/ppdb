@@ -1,9 +1,7 @@
 import { useAuth } from "@hooks";
 
-const Index = () => {
+export default () => {
   useAuth();
 
   return null;
 };
-
-export default Index;

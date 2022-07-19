@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
-const Login = () => {
+export default () => {
   const { push, replace } = useRouter();
 
   const [username, setUsername] = useState("");
@@ -46,5 +46,3 @@ const Login = () => {
     </Container>
   );
 };
-
-export default Login;

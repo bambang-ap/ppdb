@@ -13,4 +13,6 @@ export enum PATHS {
   APP = "/app",
   // Add id to SISWA path
   SISWA = "/app/siswa",
+  USERS = "/app/users",
+  SETTINGS = "/app/users/settings",
 }

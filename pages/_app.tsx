@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from "react";
-import Head from "next/head";
+import React, { useEffect } from "react";
 import { AppProps } from "next/app";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import { storageUserData } from "@utils";
@@ -8,7 +7,7 @@ import { User } from "@type/User";
 
 import "./globals.css";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+export default ({ Component, pageProps }: AppProps) => {
   return (
     <RecoilRoot>
       <RenderComponent>
@@ -17,8 +16,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </RecoilRoot>
   );
 };
-
-export default MyApp;
 
 const RenderComponent = ({ children }: { children: JSX.Element }) => {
   const setUserData = useSetRecoilState(atomUserData);

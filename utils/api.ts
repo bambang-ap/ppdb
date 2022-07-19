@@ -26,4 +26,7 @@ export const ApiClient = {
   listStudents() {
     return axios.get<ShortStudentData[]>(`/api/students`);
   },
+  updateUserData(body: User) {
+    return axios.put<User>(`/api/user`, body);
+  },
 };

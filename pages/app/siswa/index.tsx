@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-const ListSiswa = () => {
+export default () => {
   const { replace, push } = useRouter();
   const [students, setStudents] = useRecoilState(atomListSiswa);
   const userData = useRecoilValue(atomUserData);
@@ -64,5 +64,3 @@ const ListSiswa = () => {
     </Container>
   );
 };
-
-export default ListSiswa;

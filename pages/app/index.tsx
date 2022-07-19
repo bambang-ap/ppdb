@@ -9,23 +9,15 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-const App = () => {
-  const { replace, push } = useRouter();
-
-  const { _id, role } = useRecoilValue(atomUserData) ?? {};
-
-  useEffect(() => {
-    if (role === USER_ROLES.SISWA) replace(`${PATHS.SISWA}/${_id}`);
-  }, []);
-
-  useEffect(() => {}, []);
+export default () => {
+  const { push } = useRouter();
 
   return (
     <Container>
       <Header title="PPDB (Penerimaan Peserta Didik Baru)" />
       <Button onClick={() => push(PATHS.SISWA)}>Daftar Calon Siswa</Button>
+      <Button onClick={() => push(PATHS.USERS)}>Daftar Akun</Button>
+      <Button onClick={() => push(PATHS.SETTINGS)}>Akun</Button>
     </Container>
   );
 };
-
-export default App;

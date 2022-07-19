@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === METHODS.GET) getData(req, res);
   else if (method === METHODS.POST) insertData(req, res);
   else if (method === METHODS.PUT) updateData(req, res);
-  else res.status(405).send({ status: 405, msg: "Method not allowed" });
+  else res.status(405).send({ msg: "Method not allowed" });
 };
 
 const getData = async (req: NextApiRequest, res: NextApiResponse) => {
