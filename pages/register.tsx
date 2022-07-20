@@ -12,11 +12,12 @@ export default () => {
   const { data, init } = useDataSiswa();
 
   const checkToken = async (token: string) => {
-    init({});
     if (!token) {
       alert("Token invalid");
       replace(PATHS.LOGIN);
     }
+
+    init({ token });
 
     try {
       await ApiClient.checkToken(token);
