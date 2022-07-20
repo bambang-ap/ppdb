@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 export default () => {
-  const { push, replace } = useRouter();
+  const { replace } = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,9 +39,6 @@ export default () => {
           placeholder="ex: ··········"
         />
         <Button onClick={doLogin}>Login</Button>
-        <Button onClick={() => push(`${PATHS.REGISTER}?token=12345678`)}>
-          Register
-        </Button>
       </View>
     </Container>
   );

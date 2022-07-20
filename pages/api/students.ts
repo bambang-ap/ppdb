@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 import { User, USER_ROLES } from "@type/User";
 import { btoa } from "abab";
 
-const { AYAH, IBU, SISWA, WALI, USER } = COLLECTIONS;
+const { AYAH, IBU, SISWA, WALI, USER, TOKEN } = COLLECTIONS;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
@@ -55,6 +55,7 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
 const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     _id: ____,
+    token,
     ayah: [{ _id: _, ...ayah }] = [{} as OrangTua],
     wali: [{ _id: __, ...ibu }] = [{} as OrangTua],
     ibu: [{ _id: ___, ...wali }] = [{} as OrangTua],
@@ -63,6 +64,7 @@ const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
   const _id = v4();
   const { nisn, namaLengkap } = siswa ?? {};
 
+  if (!token) return res.status(500).send({ msg: "Token not included" });
   if (!nisn) return res.status(500).send({ msg: "NISN not included" });
 
   const connection = await mongoClient.connect();
@@ -72,12 +74,20 @@ const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await session.withTransaction(
       async () => {
-        const dataSiswa: StudentData = { ...siswa, _id, checked: false };
+        const dataToken = await database
+          .collection<Token>(TOKEN)
+          .findOne({ token });
+
+        const dataSiswa: StudentData = { ...siswa, token, _id, checked: false };
+        const tokenData = { ...(dataToken ?? ({} as Token)), registered: true };
         return await Promise.all([
           database.collection<OrangTua>(AYAH).insertOne({ ...ayah, _id }),
           database.collection<OrangTua>(IBU).insertOne({ ...ibu, _id }),
           database.collection<OrangTua>(WALI).insertOne({ ...wali, _id }),
           database.collection<StudentData>(SISWA).insertOne(dataSiswa),
+          database
+            .collection<Token>(TOKEN)
+            .updateOne({ token }, { $set: tokenData }, { upsert: true }),
           database.collection<User>(USER).insertOne({
             _id,
             image: "",
@@ -94,7 +104,11 @@ const insertData = async (req: NextApiRequest, res: NextApiResponse) => {
     await session.commitTransaction();
     connection.close();
 
-    res.status(200).send({ msg: "Data inserted" });
+    res
+      .status(200)
+      .send({
+        msg: "Data inserted - Silahkan login dengan username dan password menggunakan NISN",
+      });
   } catch (err) {
     res.status(500).send({ msg: "Data not inserted" });
   }

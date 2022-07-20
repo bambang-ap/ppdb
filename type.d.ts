@@ -23,3 +23,10 @@ interface Array<T> {
   replace: (index: number, data: T) => T[];
   remove: (index: number) => T[];
 }
+
+interface Token {
+  _id: string;
+  token: string;
+  reporterId: string;
+  registered: boolean;
+}

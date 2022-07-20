@@ -23,7 +23,7 @@ export const Header = (props: Props) => {
         <Head>
           <title>{title}</title>
         </Head>
-        <Button onClick={() => push(PATHS.APP)}>Home</Button>
+        <Button onClick={() => push(PATHS.APP)}>Beranda</Button>
         <BoxSpace b />
         <Text flex>{title}</Text>
         <Button onClick={() => push(PATHS.SETTINGS)}>Akun</Button>

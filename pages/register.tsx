@@ -17,20 +17,20 @@ export default () => {
       alert("Token invalid");
       replace(PATHS.LOGIN);
     }
-    const { data } = await ApiClient.checkToken(token);
 
-    if (data) return;
-
-    alert("Token invalid");
-    replace(PATHS.LOGIN);
+    try {
+      await ApiClient.checkToken(token);
+    } catch (err) {
+      // @ts-ignore
+      alert(err?.response?.data?.msg);
+      replace(PATHS.LOGIN);
+    }
   };
 
   const register = async () => {
     try {
       const { data: resp } = await ApiClient.insertStudent(data);
-      alert(
-        `${resp.msg} - Silahkan login dengan username dan password menggunakan NISN`
-      );
+      alert(resp.msg);
       replace(PATHS.LOGIN);
     } catch (err) {
       // @ts-ignore
@@ -45,9 +45,8 @@ export default () => {
 
   return (
     <Container>
-      <Button onClick={() => init({})}>Show Data</Button>
       <FormDataSiswa editable />
-      <Button onClick={register}>Show Data</Button>
+      <Button onClick={register}>Daftar</Button>
     </Container>
   );
 };

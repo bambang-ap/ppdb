@@ -3,7 +3,7 @@ import { User } from "@type/User";
 import { toQueryParams } from "@helpers";
 import { DataSiswa, ShortStudentData } from "@type/Student";
 
-type Message = { msg: string };
+type Message<T extends MyObject<unknown> = {}> = { msg: string } & T;
 
 export const ApiClient = {
   login(username: string, password: string) {
@@ -12,7 +12,10 @@ export const ApiClient = {
     );
   },
   checkToken(token: string) {
-    return axios.get<boolean>(`/api/check-token?${toQueryParams({ token })}`);
+    return axios.get<boolean>(`/api/token?${toQueryParams({ token })}`);
+  },
+  createToken(reporterId: string) {
+    return axios.post<Message<{ token: string }>>(`/api/token`, { reporterId });
   },
   insertStudent(body: DataSiswa) {
     return axios.post<Message>(`/api/students`, body);
