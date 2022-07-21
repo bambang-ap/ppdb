@@ -9,6 +9,7 @@ import {
   Wrapper,
 } from "@components";
 import { eID, PATHS } from "@constants";
+import { useLoader } from "@hooks";
 import { atomUserData } from "@recoil/atoms";
 import { USER_ROLES } from "@type/User";
 import { ApiClient } from "@utils";
@@ -17,6 +18,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 
 export default () => {
+  const loader = useLoader();
   const { push } = useRouter();
 
   const { role = USER_ROLES.SISWA, _id } = useRecoilValue(atomUserData) ?? {};
@@ -34,7 +36,7 @@ export default () => {
     if (waNumber.length < 10) {
       return alert("Silahkan input nomor WhatsApp target");
     }
-
+    loader.show();
     try {
       const { data } = await ApiClient.createToken(_id);
       const url = `https://wa.me/${waNumber}?text=Silahkan isi data diri anda pada tautan ini ${location.origin}/register?token=${data.token}`;
@@ -43,6 +45,7 @@ export default () => {
       // @ts-ignore
       alert(err?.response?.data?.msg);
     }
+    loader.hide();
   };
 
   return (
