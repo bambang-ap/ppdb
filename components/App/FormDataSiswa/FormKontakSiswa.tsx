@@ -35,6 +35,7 @@ const FormKontakSiswa = ({ editable }: FormDataSiswaProps) => {
   return (
     <>
       <Text alignCenter>Kontak Yang Bisa Dihubungi</Text>
+      <BoxSpace b />
       <FormInput
         disabled={!editable}
         onChangeText={(telpRumah) => setDataSiswa({ telpRumah })}
@@ -61,7 +62,7 @@ const FormKontakSiswa = ({ editable }: FormDataSiswaProps) => {
         onChangeText={(hpWali) => setDataSiswa({ hpWali })}
         value={hpWali}
         type="number"
-        title="Nomor HP Ibu Kandung"
+        title="Nomor HP Wali (Jika Ada)"
       />
       <FormInput
         disabled={!editable}
@@ -80,7 +81,7 @@ const FormKontakSiswa = ({ editable }: FormDataSiswaProps) => {
               title={dt.name}
               onChange={({ value }, index) => {
                 if (!editable) return;
-                
+
                 const dataSocmed = (dt.variable?.slice?.() ??
                   Array.from({ length: 5 })) as DataSiswa["socmed"];
                 dataSocmed[index] =

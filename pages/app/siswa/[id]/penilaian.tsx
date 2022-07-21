@@ -45,8 +45,7 @@ export default () => {
       initialize(data);
     } catch (err) {
       // @ts-ignore
-      alert(err?.response?.data?.msg);
-      back();
+      // alert(err?.response?.data?.msg);
     }
     loader.hide();
   };

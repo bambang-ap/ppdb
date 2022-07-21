@@ -4,6 +4,7 @@ import {
   FormRadio,
   FormTextarea,
   Text,
+  BoxSpace,
 } from "@components";
 import { useDataSiswa } from "@hooks";
 import { FormDataSiswaProps } from "@appComponent";
@@ -36,6 +37,7 @@ const DataPribadiSiswa = ({ editable }: FormDataSiswaProps) => {
   return (
     <>
       <Text alignCenter>Data Pribadi Calon Peserta Didik</Text>
+      <BoxSpace b />
       <FormInput
         disabled={!editable}
         value={namaLengkap}
@@ -75,6 +77,7 @@ const DataPribadiSiswa = ({ editable }: FormDataSiswaProps) => {
         disabled={!editable}
         value={tanggalLahir}
         title="Tanggal Lahir"
+        onChangeText={(tanggalLahir) => setDataSiswa({ tanggalLahir })}
       />
       <FormInput
         disabled={!editable}

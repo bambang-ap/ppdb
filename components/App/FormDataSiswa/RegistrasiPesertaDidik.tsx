@@ -1,4 +1,10 @@
-import { FormCheckbox, FormInput, FormRadio, Text } from "@components";
+import {
+  FormCheckbox,
+  FormInput,
+  FormRadio,
+  Text,
+  BoxSpace,
+} from "@components";
 import { useDataSiswa } from "@hooks";
 import { FormDataSiswaProps } from "@appComponent";
 
@@ -10,6 +16,7 @@ const RegistrasiPesertaDidik = ({ editable }: FormDataSiswaProps) => {
   return (
     <>
       <Text alignCenter>Registrasi Peserta Didik</Text>
+      <BoxSpace b />
       <FormRadio
         value={jenisPendaftaran}
         title="Jenis Pendaftaran"

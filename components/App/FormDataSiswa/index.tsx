@@ -1,4 +1,4 @@
-import { Text, View } from "@components";
+import { Text, View, BoxSpace } from "@components";
 import { StudentKey } from "@type/Student";
 import { COLORS, SIZES } from "@constants";
 import FormDataOrangTua from "./FormOrangTua";
@@ -23,16 +23,19 @@ export const FormDataSiswa = (props: FormDataSiswaProps) => {
 
       <View style={style}>
         <Text alignCenter>Data Ayah Kandung</Text>
+        <BoxSpace b />
         <FormDataOrangTua id={StudentKey.AYAH} {...props} />
       </View>
 
       <View style={style}>
         <Text alignCenter>Data Ibu Kandung</Text>
+        <BoxSpace b />
         <FormDataOrangTua id={StudentKey.IBU} {...props} />
       </View>
 
       <View style={style}>
         <Text alignCenter>Data Wali Peserta Didik(Jika ada)</Text>
+        <BoxSpace b />
         <FormDataOrangTua id={StudentKey.WALI} {...props} />
       </View>
 
