@@ -26,16 +26,16 @@ export default () => {
 
   const updatePenilaian = async () => {
     loader.show();
-    // try {
-    //   await ApiClient.updatePenilaian({
-    //     id,
-    //     forms: forms.filter(([key]) => Boolean(key)),
-    //   });
-    // } catch (err) {
-    //   // @ts-ignore
-    //   alert(err?.response?.data?.msg);
-    // }
-    // loader.hide();
+    try {
+      await ApiClient.updatePenilaian({
+        id,
+        forms: forms.filter(([key]) => Boolean(key)),
+      });
+    } catch (err) {
+      // @ts-ignore
+      alert(err?.response?.data?.msg);
+    }
+    loader.hide();
   };
 
   const getData = async () => {
@@ -68,6 +68,7 @@ export default () => {
           <Fragment key={key}>
             <Wrapper itemsCenter>
               <Input
+                autoFocus
                 value={key}
                 style={{ flex: 1 }}
                 onChangeText={(key) => replace(index, [key, value])}
