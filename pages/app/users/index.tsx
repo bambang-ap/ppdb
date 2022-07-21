@@ -49,9 +49,9 @@ export default () => {
         <Text flex>Role</Text>
       </Wrapper>
       {users?.map((user) => {
-        const { name, role, username } = user;
+        const { _id, name, role, username } = user;
         return (
-          <Wrapper>
+          <Wrapper key={_id}>
             <Text flex>{name}</Text>
             <Text flex>{username}</Text>
             <Text flex>{role}</Text>

@@ -48,7 +48,7 @@ export default () => {
       {students.map((siswa) => {
         const { _id, alamat, asalSekolah, namaLengkap, nisn, noHp } = siswa;
         return (
-          <Wrapper>
+          <Wrapper key={_id}>
             <Text flex>{nisn}</Text>
             <Text flex>{namaLengkap}</Text>
             <Text flex>{asalSekolah}</Text>

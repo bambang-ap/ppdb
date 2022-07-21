@@ -9,14 +9,15 @@ import {
   Input,
   Text,
 } from "@components";
-import { useArray } from "@hooks";
+import { useArray, useLoader } from "@hooks";
 import { ShortStudentData } from "@type/Student";
 import { ApiClient } from "@utils";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 export default () => {
-  const { query } = useRouter();
+  const loader = useLoader();
+  const { query, back } = useRouter();
   const [forms, setForms] = useArray<[string, string]>([]);
 
   const { push, remove, replace, initialize } = setForms;
@@ -24,19 +25,34 @@ export default () => {
   const title = `Penilaian: ${namaLengkap}`;
 
   const updatePenilaian = async () => {
+    loader.show();
+    // try {
+    //   await ApiClient.updatePenilaian({
+    //     id,
+    //     forms: forms.filter(([key]) => Boolean(key)),
+    //   });
+    // } catch (err) {
+    //   // @ts-ignore
+    //   alert(err?.response?.data?.msg);
+    // }
+    // loader.hide();
+  };
+
+  const getData = async () => {
+    loader.show();
     try {
-      await ApiClient.updatePenilaian({
-        id,
-        forms: forms.filter(([key]) => Boolean(key)),
-      });
+      const { data } = await ApiClient.getPenilaian(id);
+      initialize(data);
     } catch (err) {
       // @ts-ignore
       alert(err?.response?.data?.msg);
+      back();
     }
+    loader.hide();
   };
 
   useEffect(() => {
-    if (id) ApiClient.getPenilaian(id).then(({ data }) => initialize(data));
+    if (id) getData();
   }, [id]);
 
   return (
@@ -50,7 +66,7 @@ export default () => {
       <BoxSpace b />
       {forms.map(([key, value], index) => {
         return (
-          <>
+          <Fragment key={key}>
             <Wrapper itemsCenter>
               <Input
                 value={key}
@@ -69,7 +85,7 @@ export default () => {
               </Button>
             </Wrapper>
             <BoxSpace b />
-          </>
+          </Fragment>
         );
       })}
       <Wrapper>
