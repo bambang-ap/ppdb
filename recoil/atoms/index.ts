@@ -1,6 +1,11 @@
-import { DataSiswa, ShortStudentData } from "@type/Student";
-import { User } from "@type/User";
 import { atom } from "recoil";
+import { User } from "@type/User";
+import { DataSiswa, ShortStudentData } from "@type/Student";
+
+export const atomLoader = atom({
+  key: "atomLoader",
+  default: false,
+});
 
 export const atomStudent = atom({
   key: "atomStudent",

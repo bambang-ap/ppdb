@@ -1,5 +1,13 @@
 import { Header } from "@appComponent";
-import { BoxSpace, Button, Container, Input, Text, View, Wrapper } from "@components";
+import {
+  BoxSpace,
+  Button,
+  Container,
+  Input,
+  Text,
+  View,
+  Wrapper,
+} from "@components";
 import { eID, PATHS } from "@constants";
 import { atomUserData } from "@recoil/atoms";
 import { USER_ROLES } from "@type/User";
@@ -10,7 +18,7 @@ import { useRecoilValue } from "recoil";
 
 export default () => {
   const { push } = useRouter();
-  console.log(useRouter());
+
   const { role = USER_ROLES.SISWA, _id } = useRecoilValue(atomUserData) ?? {};
 
   const [waNumber, setWaNumber] = useState("");

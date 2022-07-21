@@ -1,5 +1,6 @@
 export * from "./styled-components";
 export * from "./Modal";
+export * from "./Loader";
 
 import {
   Input,

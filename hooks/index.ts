@@ -1,4 +1,4 @@
-export * from "./useAuth";
+export * from "./useLoader";
 export * from "./useDataSiswa";
 
 import { Dispatch, useEffect, useRef, useState } from "react";

@@ -1,8 +1,8 @@
 import { FormDataSiswa } from "@appComponent";
-import { Button, Container } from "@components";
+import { BoxSpace, Button, Container, Text } from "@components";
 import { PATHS } from "@constants";
 import { queryParamsToObject } from "@helpers";
-import { useDataSiswa } from "@hooks";
+import { useDataSiswa, useLoader } from "@hooks";
 import { ApiClient } from "@utils";
 import { useRouter } from "next/router";
 import { useLayoutEffect } from "react";
@@ -11,6 +11,8 @@ export default () => {
   const { replace } = useRouter();
   const { data, init } = useDataSiswa();
 
+  const loader = useLoader();
+
   const checkToken = async (token: string) => {
     if (!token) {
       alert("Token invalid");
@@ -18,7 +20,7 @@ export default () => {
     }
 
     init({ token });
-
+    loader.show();
     try {
       await ApiClient.checkToken(token);
     } catch (err) {
@@ -26,9 +28,11 @@ export default () => {
       alert(err?.response?.data?.msg);
       replace(PATHS.LOGIN);
     }
+    loader.hide();
   };
 
   const register = async () => {
+    loader.show();
     try {
       const { data: resp } = await ApiClient.insertStudent(data);
       alert(resp.msg);
@@ -37,6 +41,7 @@ export default () => {
       // @ts-ignore
       alert(err?.response?.data?.msg);
     }
+    loader.hide();
   };
 
   useLayoutEffect(() => {
@@ -46,6 +51,8 @@ export default () => {
 
   return (
     <Container>
+      <Text alignCenter>Silahkan isi data diri anda</Text>
+      <BoxSpace b />
       <FormDataSiswa editable />
       <Button onClick={register}>Daftar</Button>
     </Container>

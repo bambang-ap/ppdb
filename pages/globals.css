@@ -3,3 +3,13 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+html, body, #__next {
+  margin: 0
+}
+
+#__next {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}

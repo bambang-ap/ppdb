@@ -7,6 +7,7 @@ import { User } from "@type/User";
 
 import "./globals.css";
 import "../type";
+import { Loader } from "@components";
 
 export default ({ Component, pageProps }: AppProps) => {
   return (
@@ -26,5 +27,10 @@ const RenderComponent = ({ children }: { children: JSX.Element }) => {
     setUserData(user);
   }, []);
 
-  return children;
+  return (
+    <>
+      <Loader />
+      {children}
+    </>
+  );
 };

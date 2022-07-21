@@ -1,7 +1,7 @@
 import { FormDataSiswa, Header } from "@appComponent";
 import { BoxSpace, Button, Container, Wrapper } from "@components";
 import { eID, PATHS } from "@constants";
-import { useDataSiswa } from "@hooks";
+import { useDataSiswa, useLoader } from "@hooks";
 import { atomUserData } from "@recoil/atoms";
 import { ShortStudentData } from "@type/Student";
 import { USER_ROLES } from "@type/User";
@@ -17,6 +17,8 @@ export default () => {
     data: { checked, namaLengkap, ...dataSiswa },
     init,
   } = useDataSiswa();
+
+  const loader = useLoader();
 
   const id = query.id as string;
   const title = `Siswa: ${namaLengkap || (id as string)}`;
@@ -38,8 +40,10 @@ export default () => {
   };
 
   const getData = async () => {
+    loader.show();
     const { data } = await ApiClient.getStudent(id as string);
     init(data);
+    loader.hide();
   };
 
   const updateData = async (checked = false) => {
